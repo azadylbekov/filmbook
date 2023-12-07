@@ -1,0 +1,14 @@
+.person-para-enter {
+  opacity: 0;
+}
+.person-para-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.person-para-exit {
+  opacity: 1;
+}
+.person-para-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}

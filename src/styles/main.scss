@@ -1,0 +1,18 @@
+@import 'vars';
+@import 'globals';
+@import 'animation';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  font-family: "Poppins";
+}
+
+body {
+  background-color: black;
+  scroll-behavior: auto;
+}
+
+
