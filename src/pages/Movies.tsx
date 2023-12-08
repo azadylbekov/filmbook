@@ -18,7 +18,6 @@ import { sortByOptions } from "@/utils/const";
 import { useLazyGetMoviesWithFilterQuery } from "@/services/FilmBookService";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
-import ScrollLoader from "@/components/ScrollLoader/ScrollLoader";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
 import { useDidMountEffect } from "@/hooks/useDidMountEffect";
 
@@ -121,75 +120,69 @@ export default function Movies() {
 
   useDidMountEffect(() => {
     const results = !areMoviesLoading && areMoviesEmpty && !moviesError;
-    setNoResults(results)
-  }, [areMoviesLoading, areMoviesEmpty, moviesError])
+    setNoResults(results);
+  }, [areMoviesLoading, areMoviesEmpty, moviesError]);
 
   return (
-    <Layout>
-      <main className="text-white lg:py-10 py-8">
-        <Container>
-          <h2 className="lg:text-3xl text-2xl lg:mb-8 mb-4">Movies</h2>
-          <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
-            <div className="md:w-auto w-full mb-2">
-              <Select
-                isClearable
-                isSearchable={false}
-                options={allMovieGenres}
-                styles={customStyles}
-                value={genre}
-                onChange={genreChange}
-                placeholder="Genres"
-              />
-            </div>
-            <div className="md:w-auto w-full mb-2">
-              <CreatableSelect
-                isSearchable
-                isClearable
-                options={yearOptions}
-                styles={customStyles}
-                value={year}
-                placeholder="Year of release"
-                onChange={yearChange}
-                onKeyDown={handleNumberOnlyInput}
-              />
-            </div>
-            <div className="md:w-auto w-full mb-2">
-              <Select
-                isSearchable={false}
-                options={sortByOptions}
-                styles={customStyles}
-                value={sortBy}
-                placeholder="Sort by"
-                formatOptionLabel={formatOptionLabel}
-                onChange={sortByChange}
-                defaultValue={sortByOptions[1]}
-              />
-            </div>
+    <main className="text-white lg:py-10 py-8">
+      <Container>
+        <h2 className="lg:text-3xl text-2xl lg:mb-8 mb-4">Movies</h2>
+        <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
+          <div className="md:w-auto w-full mb-2">
+            <Select
+              isClearable
+              isSearchable={false}
+              options={allMovieGenres}
+              styles={customStyles}
+              value={genre}
+              onChange={genreChange}
+              placeholder="Genres"
+            />
           </div>
-          <InfiniteScroll
-            dataLength={movies.length}
-            next={fetchMovieQuery}
-            hasMore={hasMore}
-            loader={<MovieGridSkeleton />}
-          >
-            <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
-              {movies.map((movie) => {
-                return (
-                  <div className="mb-4" key={movie.id}>
-                    <MovieCard movie={movie} />
-                  </div>
-                );
-              })}
-            </div>
-          </InfiniteScroll>
-          {noResults && (
-            <h3 className="my-2 text-xl">No results</h3>
-          )}
-          {moviesError && (
-            <ErrorMessage error={moviesError} />
-          )}
-        </Container>
-      </main>
-    </Layout>
+          <div className="md:w-auto w-full mb-2">
+            <CreatableSelect
+              isSearchable
+              isClearable
+              options={yearOptions}
+              styles={customStyles}
+              value={year}
+              placeholder="Year of release"
+              onChange={yearChange}
+              onKeyDown={handleNumberOnlyInput}
+            />
+          </div>
+          <div className="md:w-auto w-full mb-2">
+            <Select
+              isSearchable={false}
+              options={sortByOptions}
+              styles={customStyles}
+              value={sortBy}
+              placeholder="Sort by"
+              formatOptionLabel={formatOptionLabel}
+              onChange={sortByChange}
+              defaultValue={sortByOptions[1]}
+            />
+          </div>
+        </div>
+        <InfiniteScroll
+          dataLength={movies.length}
+          next={fetchMovieQuery}
+          hasMore={hasMore}
+          loader={<MovieGridSkeleton />}
+        >
+          <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
+            {movies.map((movie) => {
+              return (
+                <div className="mb-4" key={movie.id}>
+                  <MovieCard movie={movie} />
+                </div>
+              );
+            })}
+          </div>
+        </InfiniteScroll>
+        {noResults && <h3 className="my-2 text-xl">No results</h3>}
+        {moviesError && <ErrorMessage error={moviesError} />}
+      </Container>
+    </main>
   );
 }

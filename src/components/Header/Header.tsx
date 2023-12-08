@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import Container from "../Container";
-import { FaSearch, FaSlidersH } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import styles from "./Header.module.scss";
 import { Fade as Hamburger } from "hamburger-react";
 import SearchResultDropdown from "@/components/SearchResultDropdown/SearchResultDropdown";
@@ -14,9 +14,10 @@ import {
 } from "@/services/FilmBookService";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import Spinner from "react-bootstrap/Spinner";
 import { BsXLg } from "react-icons/bs";
+import Spinner from 'react-bootstrap/Spinner';
+import { toast, ToastContainer } from "react-toastify";
+
 
 export default function Header() {
   const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
@@ -34,6 +35,8 @@ export default function Header() {
 
   const [isSearchDropdownShow, setIsSearchDropdownShow] = useState(false);
 
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+
   const [getNewSessionTrigger, getNewSessionData] =
     useLazyGetNewGuestSessionIdQuery();
   const {
@@ -47,27 +50,6 @@ export default function Header() {
 
   const debounce = useDebounce();
 
-  const dispatch = useDispatch();
-
-
-  // useEffect(() => {
-  //   const query = location.search;
-  //   const regex = "=([^;]*)&";
-  //   const requestToken = query.match(regex);
-  //   if (requestToken) {
-  //     createSession(requestToken[1]);
-  //   }
-  // }, []);
-
-  // const createSession = (requestToken) => {
-  //   api
-  //     .post("authentication/session/new", {
-  //       request_token: requestToken,
-  //     })
-  //     .then((data) => {
-  //       console.log("session data", data);
-  //     });
-  // };
   let triggerRef = useRef(null);
   let timeoutRef = useRef(null);
   let inputRef = useRef(null);
@@ -137,13 +119,26 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (!isNewSessionLoading && getNewSessionData.status == "fulfilled") {
-      const guestSessionId = newSessionId.guest_session_id;
-      localStorage.setItem("guestSessionId", guestSessionId);
+    if (!isNewSessionLoading) {
+      setIsLoginLoading(false);
+      if (getNewSessionData.status == "fulfilled") {
+        toast.success("Logged in as a guest!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        const guestSessionId = newSessionId.guest_session_id;
+        localStorage.setItem("guestSessionId", guestSessionId);
+      }
+      if (isNewSessionError) {
+        const error = "Error! Could not login as a guest! " + isNewSessionError?.data?.status_message;
+        toast.success(error, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     }
-  }, [isNewSessionLoading, getNewSessionData]);
+  }, [isNewSessionLoading, getNewSessionData, isNewSessionError]);
 
   const onLogin = () => {
+    setIsLoginLoading(true);
     getNewSessionTrigger();
   };
 
@@ -158,7 +153,7 @@ export default function Header() {
   return (
     <header className="bg-black border-b !border-[#3c3c3c] fixed top-0 left-0 right-0 z-50">
       <Container>
-        <div className="flex items-center justify-between py-4 text-white">
+        <div className="flex items-center justify-between !py-2 md:!py-4  text-white">
           <div className="flex items-center">
             <div className="block xl:hidden mr-6">
               <Hamburger toggled={isOffcanvasOpen} toggle={toggleOffcanvas} />
@@ -203,12 +198,11 @@ export default function Header() {
               )}
 
             </form>
-            <h3 className="mr-6 text-xl">RU</h3>
             <button
               onClick={onLogin}
               className="green-gradient hidden lg:block hover:bg-hover-green duration-300 text-white font-medium px-8 py-1 rounded"
             >
-              login
+              <div className="w-10">{isLoginLoading ? <Spinner animation="border" size="sm" /> : 'login'}</div>
             </button>
             <button onClick={showIsSearchCanvas} className="block lg:hidden">
               <FaSearch className="text-2xl" />
@@ -219,6 +213,8 @@ export default function Header() {
       <MobileNavOffcanvas
         isOffcanvasOpen={isOffcanvasOpen}
         closeOffcanvas={closeOffcanvas}
+        onLogin={onLogin}
+        isLoginLoading={isLoginLoading}
       />
       <MobileSearchOffcanvas
         isSearchCanvasOpen={isSearchCanvasOpen}
@@ -226,6 +222,7 @@ export default function Header() {
         setIsSearchCanvasOpen={setIsSearchCanvasOpen}
         closeSearchCanvas={closeSearchCanvas}
       />
+      <ToastContainer />
     </header>
   );
 }

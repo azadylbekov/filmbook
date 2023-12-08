@@ -19,10 +19,7 @@ import MovieShowCover from "@/components/MovieShowCover/MovieShowCover";
 import MovieShowInfo from "@/components/MovieShowInfo/MovieShowInfo";
 import RatingDropdown from "@/components/RatingDropdown/RatingDropdown";
 import TrailerModal from "@/components/TrailerModal/TrailerModal";
-import MovieShowLoader from "@/components/MovieShowLoader/MovieShowLoader";
-import { useDidMountEffect } from "@/hooks/useDidMountEffect";
 import MovieShowInfoSkeleton from "@/components/MovieShowInfo/MovieShowInfoSkeleton";
-
 
 export default function Show() {
   const { showId } = useParams();
@@ -223,7 +220,7 @@ export default function Show() {
   };
 
   return (
-    <Layout>
+    <>
       {!isShowLoading && show && (
         <div>
           <div className="relative movie-detail-poster">
@@ -260,7 +257,9 @@ export default function Show() {
       <Container>
         {!isShowLoading && show && (
           <div className="lg:my-5 my-3">
-            <h3 className="text-white lg:text-2xl text-xl lg:mb-5 mb-3">Overview</h3>
+            <h3 className="text-white lg:text-2xl text-xl lg:mb-5 mb-3">
+              Overview
+            </h3>
             <p className="text-white lg:text-xl text-md">{show.overview}</p>
           </div>
         )}
@@ -282,6 +281,6 @@ export default function Show() {
         </div>
       )}
       <ToastContainer />
-    </Layout>
+    </>
   );
 }

@@ -5,7 +5,6 @@ import Credits from "@/components/Credits/Credits";
 import Container from "@/components/Container";
 import MovieGridUI from "@/components/MovieGrid/MovieGridUI";
 import { useSelector } from "react-redux";
-import { useDidMountEffect } from "@/hooks/useDidMountEffect";
 import TrailerModal from "@/components/TrailerModal/TrailerModal";
 import RatingDropdown from "@/components/RatingDropdown/RatingDropdown";
 import MovieShowInfo from "@/components/MovieShowInfo/MovieShowInfo";
@@ -21,10 +20,8 @@ import {
   useToggleWatchlistMutation,
   useChangeRatingMutation,
 } from "@/services/FilmBookService";
-import MovieShowLoader from "@/components/MovieShowLoader/MovieShowLoader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieShowInfoSkeleton from "@/components/MovieShowInfo/MovieShowInfoSkeleton";
-
 
 export default function Movie() {
   const { movieId } = useParams();
@@ -232,7 +229,7 @@ export default function Movie() {
   };
 
   return (
-    <Layout>
+    <>
       {!isMovieLoading && movie && (
         <div>
           <div className="relative movie-detail-poster">
@@ -268,7 +265,11 @@ export default function Movie() {
       {isMovieLoading && <MovieShowInfoSkeleton />}
 
       <Container>
-        {movieError && <div className="mt-2"><ErrorMessage error={movieError} /></div>}
+        {movieError && (
+          <div className="mt-2">
+            <ErrorMessage error={movieError} />
+          </div>
+        )}
         {!isMovieLoading && movie && (
           <div className="lg:my-5 my-3">
             <h3 className="text-white lg:text-2xl text-xl lg:mb-5 mb-3">
@@ -290,11 +291,15 @@ export default function Movie() {
                 Similar movies
               </span>
             </a>
-            <MovieGridUI isNav={true} movies={similarMovies} />
+            <MovieGridUI
+              isNav={true}
+              movies={similarMovies}
+              isLoading={isSimilarMoviesLoading}
+            />
           </Container>
         </div>
       )}
       <ToastContainer />
-    </Layout>
+    </>
   );
 }

@@ -11,7 +11,6 @@ import {
   setWatchlistTv,
 } from "@/store/reducers/watchlistSlice";
 import { useLazyGetWatchlistQuery } from "@/services/FilmBookService";
-import Spinner from "react-bootstrap/Spinner";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
 
@@ -65,7 +64,7 @@ export default function Watchlist() {
   };
 
   return (
-    <Layout>
+    <>
       <Container>
         <h3 className="text-white text-3xl mb-8 mt-10">Watchlist</h3>
         <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
@@ -96,11 +95,6 @@ export default function Watchlist() {
               ))}
           </div>
         )}
-        {/* {isWatchlistLoading && (
-          <div className="flex items-center justify-center h-[300px]">
-            <Spinner variant="light" animation="border" role="status"></Spinner>
-          </div>
-        )} */}
         {isWatchlistLoading && <MovieGridSkeleton count={5} />}
         {category.value == 'movies' && noMovies && (
           <h3 className="text-xl text-white">
@@ -114,6 +108,6 @@ export default function Watchlist() {
         )}
         {watchlistError && <ErrorMessage error={watchlistError} />}
       </Container>
-    </Layout>
+    </>
   );
 }

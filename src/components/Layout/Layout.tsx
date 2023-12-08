@@ -10,7 +10,7 @@ export default function Layout({ children }) {
     <div className="flex flex-col min-h-screen justify-between">
       <div>
         <Header />
-        <div className="pt-[92px]">{children}</div>
+        <div className="pt-[65px] lg:!pt-[77px] md:!pt-[81px]">{children}</div>
       </div>
       <Footer />
     </div>

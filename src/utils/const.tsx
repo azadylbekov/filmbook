@@ -1,4 +1,4 @@
-
+import { createRef } from "react";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
 export const sortByOptions = [
@@ -12,26 +12,32 @@ export const NAV_LINKS = [
   {
     title: "Home",
     href: "/",
+    ref: createRef(null),
   },
   {
     title: "Movies",
     href: "/movies",
+    ref: createRef(null),
   },
   {
     title: "Tv Series",
     href: "/tvseries",
+    ref: createRef(null),
   },
   {
     title: "Favorites",
     href: "/favorites",
+    ref: createRef(null),
   },
   {
     title: "Watchlist",
     href: "/watchlist",
+    ref: createRef(null),
   },
   {
     title: "Rated",
     href: "/rated",
+    ref: createRef(null),
   },
 ];
 

@@ -24,7 +24,7 @@ import Show from "./pages/Show";
 import Favorites from "./pages/Favorites";
 import Watchlist from "./pages/Watchlist";
 import RatingList from "./pages/RatingList";
-
+import Layout from "./components/Layout/Layout";
 
 function App() {
   const dispatch = useDispatch();
@@ -106,18 +106,20 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="movie/:movieId" element={<Movie />} />
-        <Route path="search" element={<Search />} />
-        <Route path="person/:personId" element={<Person />} />
-        <Route path="tvseries" element={<TvSeries />} />
-        <Route path="show/:showId" element={<Show />} />
-        <Route path="favorites" element={<Favorites />} />
-        <Route path="watchlist" element={<Watchlist />} />
-        <Route path="rated" element={<RatingList />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="movie/:movieId" element={<Movie />} />
+          <Route path="search" element={<Search />} />
+          <Route path="person/:personId" element={<Person />} />
+          <Route path="tvseries" element={<TvSeries />} />
+          <Route path="show/:showId" element={<Show />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="watchlist" element={<Watchlist />} />
+          <Route path="rated" element={<RatingList />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }

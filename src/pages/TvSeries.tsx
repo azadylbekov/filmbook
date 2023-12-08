@@ -16,13 +16,10 @@ import CreatableSelect from "react-select/creatable";
 import { sortByOptions } from "@/utils/const";
 import ShowCard from "@/components/ShowCard/ShowCard";
 import { useLazyGetShowsWithFilterQuery } from "@/services/FilmBookService";
-import Spinner from "react-bootstrap/Spinner";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import InfiniteScroll from "react-infinite-scroll-component";
-import ScrollLoader from "@/components/ScrollLoader/ScrollLoader";
 import { useDidMountEffect } from "@/hooks/useDidMountEffect";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-
 
 export default function TvSeries() {
   const dispatch = useDispatch();
@@ -43,7 +40,6 @@ export default function TvSeries() {
   const queryRef = useRef("");
 
   const [noResults, setNoResults] = useState(false);
-
 
   const [getShowsTrigger, showsData] = useLazyGetShowsWithFilterQuery();
   const {
@@ -98,14 +94,12 @@ export default function TvSeries() {
   useEffect(() => {
     if (showsData.status == "fulfilled") {
       pageRef.current = pageRef.current + 1;
-      let isCurrentSameAsTotalPage =
-        pageRef.current <= showResults.total_pages;
+      let isCurrentSameAsTotalPage = pageRef.current <= showResults.total_pages;
       setHasMore(isCurrentSameAsTotalPage);
 
       setShows((prevResult) => [...prevResult, ...showResults.results]);
     }
   }, [showsData]);
-
 
   const generateQuery = () => {
     let query = "";
@@ -148,83 +142,81 @@ export default function TvSeries() {
 
   useDidMountEffect(() => {
     const results = !areShowsLoading && areShowsEmpty && !showsError;
-    setNoResults(results)
-  }, [areShowsLoading, areShowsEmpty, showsError])
+    setNoResults(results);
+  }, [areShowsLoading, areShowsEmpty, showsError]);
 
   return (
-    <Layout>
-      <div className="text-white py-10">
-        <Container>
-          <h2 className="text-3xl mb-8">TV Series</h2>
-          <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
-            <div className="md:w-auto w-full mb-2">
-              <Select
-                isClearable
-                isSearchable={false}
-                options={allTvGenres}
-                styles={customStyles}
-                value={genre}
-                onChange={genreChange}
-                placeholder="Genres"
-              />
-            </div>
-            <div className="md:w-auto w-full mb-2">
-              <CreatableSelect
-                isSearchable
-                isClearable
-                options={yearOptions}
-                styles={customStyles}
-                value={year}
-                placeholder="Year of release"
-                onChange={yearChange}
-                onKeyDown={handleNumberOnlyInput}
-              />
-            </div>
-            <div className="md:w-auto w-full mb-2">
-              <Select
-                isSearchable={false}
-                options={sortByOptions}
-                styles={customStyles}
-                value={sortBy}
-                placeholder="Sort by"
-                formatOptionLabel={formatOptionLabel}
-                onChange={sortByChange}
-                defaultValue={sortByOptions[1]}
-              />
-            </div>
-            <div className="md:w-auto w-full mb-2">
-              <Select
-                isClearable
-                isSearchable={true}
-                options={allCountries}
-                styles={customStyles}
-                value={country}
-                placeholder="Country"
-                onChange={countryChange}
-              />
-            </div>
+    <div className="text-white py-10">
+      <Container>
+        <h2 className="text-3xl mb-8">TV Series</h2>
+        <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
+          <div className="md:w-auto w-full mb-2">
+            <Select
+              isClearable
+              isSearchable={false}
+              options={allTvGenres}
+              styles={customStyles}
+              value={genre}
+              onChange={genreChange}
+              placeholder="Genres"
+            />
           </div>
-          {shows.length == 0 && <MovieGridSkeleton />}
-          <InfiniteScroll
-            dataLength={shows.length}
-            next={fetchShowsQuery}
-            hasMore={hasMore}
-            loader={<MovieGridSkeleton />}
-          >
-            <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
-              {shows.map((show) => {
-                return (
-                  <div className="mb-4" key={show.id}>
-                    <ShowCard show={show} />
-                  </div>
-                );
-              })}
-            </div>
-          </InfiniteScroll>
-          {noResults && <h3 className="my-2 text-xl">No results</h3>}
-          {showsError && <ErrorMessage error={showsError} />}
-        </Container>
-      </div>
-    </Layout>
+          <div className="md:w-auto w-full mb-2">
+            <CreatableSelect
+              isSearchable
+              isClearable
+              options={yearOptions}
+              styles={customStyles}
+              value={year}
+              placeholder="Year of release"
+              onChange={yearChange}
+              onKeyDown={handleNumberOnlyInput}
+            />
+          </div>
+          <div className="md:w-auto w-full mb-2">
+            <Select
+              isSearchable={false}
+              options={sortByOptions}
+              styles={customStyles}
+              value={sortBy}
+              placeholder="Sort by"
+              formatOptionLabel={formatOptionLabel}
+              onChange={sortByChange}
+              defaultValue={sortByOptions[1]}
+            />
+          </div>
+          <div className="md:w-auto w-full mb-2">
+            <Select
+              isClearable
+              isSearchable={true}
+              options={allCountries}
+              styles={customStyles}
+              value={country}
+              placeholder="Country"
+              onChange={countryChange}
+            />
+          </div>
+        </div>
+        {shows.length == 0 && <MovieGridSkeleton />}
+        <InfiniteScroll
+          dataLength={shows.length}
+          next={fetchShowsQuery}
+          hasMore={hasMore}
+          loader={<MovieGridSkeleton />}
+        >
+          <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
+            {shows.map((show) => {
+              return (
+                <div className="mb-4" key={show.id}>
+                  <ShowCard show={show} />
+                </div>
+              );
+            })}
+          </div>
+        </InfiniteScroll>
+        {noResults && <h3 className="my-2 text-xl">No results</h3>}
+        {showsError && <ErrorMessage error={showsError} />}
+      </Container>
+    </div>
   );
 }

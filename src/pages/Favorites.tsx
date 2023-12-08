@@ -11,10 +11,8 @@ import {
   setFavoriteTv,
 } from "@/store/reducers/favoriteSlice";
 import { useLazyGetFavoriteListQuery } from "@/services/FilmBookService";
-import Spinner from "react-bootstrap/Spinner";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-
 
 const categoryOptions = [
   { label: "Movies", value: "movies" },
@@ -46,7 +44,7 @@ export default function Favorites() {
       if (category.value == "movies") {
         setMovies(favoriteList.results);
         dispatch(setFavoriteMovies(favoriteList.results));
-        setNoMovies(favoriteList.results.length === 0)
+        setNoMovies(favoriteList.results.length === 0);
       } else {
         setShows(favoriteList.results);
         dispatch(setFavoriteTv(favoriteList.results));
@@ -64,51 +62,44 @@ export default function Favorites() {
   };
 
   return (
-    <Layout>
-      <Container>
-        <h3 className="text-white text-3xl mb-8 mt-10">Favorites</h3>
-        <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
-          <div className="md:w-auto w-full mb-2">
-            <Select
-              isSearchable={false}
-              options={categoryOptions}
-              styles={customStyles}
-              value={category}
-              onChange={categoryChange}
-              placeholder="Genres"
-            />
-          </div>
+    <Container>
+      <h3 className="text-white text-3xl mb-8 mt-10">Favorites</h3>
+      <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
+        <div className="md:w-auto w-full mb-2">
+          <Select
+            isSearchable={false}
+            options={categoryOptions}
+            styles={customStyles}
+            value={category}
+            onChange={categoryChange}
+            placeholder="Genres"
+          />
         </div>
-        {!isFavoriteListLoading && (
-          <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
-            {category.value == "movies" &&
-              movies.map((movie) => (
-                <div className="mb-4" key={movie.id}>
-                  <MovieCard movie={movie} />
-                </div>
-              ))}
-            {category.value == "tv" &&
-              shows.map((show) => (
-                <div className="mb-4" key={show.id}>
-                  <ShowCard show={show} />
-                </div>
-              ))}
-          </div>
-        )}
-        {isFavoriteListLoading && <MovieGridSkeleton count={5} />}
-        {/* {isFavoriteListLoading && (
-          <div className="flex items-center justify-center h-[300px]">
-            <Spinner variant="light" animation="border" role="status"></Spinner>
-          </div>
-        )} */}
-        {category.value == 'movies' && noMovies && (
-          <h3 className="text-xl text-white">You have no favorite movies</h3>
-        )}
-        {category.value == 'tv' && noShows && (
-          <h3 className="text-xl text-white">You have no favorite tv series</h3>
-        )}
-        {favoriteListError && <ErrorMessage error={favoriteListError} />}
-      </Container>
-    </Layout>
+      </div>
+      {!isFavoriteListLoading && (
+        <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
+          {category.value == "movies" &&
+            movies.map((movie) => (
+              <div className="mb-4" key={movie.id}>
+                <MovieCard movie={movie} />
+              </div>
+            ))}
+          {category.value == "tv" &&
+            shows.map((show) => (
+              <div className="mb-4" key={show.id}>
+                <ShowCard show={show} />
+              </div>
+            ))}
+        </div>
+      )}
+      {isFavoriteListLoading && <MovieGridSkeleton count={5} />}
+      {category.value == "movies" && noMovies && (
+        <h3 className="text-xl text-white">You have no favorite movies</h3>
+      )}
+      {category.value == "tv" && noShows && (
+        <h3 className="text-xl text-white">You have no favorite tv series</h3>
+      )}
+      {favoriteListError && <ErrorMessage error={favoriteListError} />}
+    </Container>
   );
 }

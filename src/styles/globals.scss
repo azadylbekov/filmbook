@@ -5,7 +5,20 @@
   color: #fff;
   span {
     color: var(--color-green);
+    // animation-name: widen;
+    // animation-duration: 2s;
+    // overflow: hidden;
   }
+}
+
+@keyframes widen {
+  from {width: 21px}
+  to {width: 79px}
+}
+
+@keyframes widen-right {
+  from {width: 21px}
+  to {width: 92px}
 }
 
 .swiper-button-prev,

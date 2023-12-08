@@ -11,7 +11,7 @@ export default function ErrorPage() {
       <h1 className="text-4xl mb-3">Oops!</h1>
       <p className="text-3xl mb-3">Sorry, an unexpected error has occurred.</p>
       <p className="text-2xl mb-3">
-        <i>{error.statusText || error.message}</i>
+        <i>{error?.statusText || error?.message}</i>
       </p>
 			<Link to="/" className="text-2xl text-white flex items-center">
 				<FaAngleLeft />

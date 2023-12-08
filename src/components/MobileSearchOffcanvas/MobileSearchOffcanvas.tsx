@@ -1,11 +1,10 @@
-import { useState, useCallback, useEffect, useTransition } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsXLg } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useLazyGetSearchResultsQuery } from "@/services/FilmBookService";
 import SearchResultDropdown from "@/components/SearchResultDropdown/SearchResultDropdown";
-import { createPortal } from "react-dom";
 
 export default function MobileOffcanvas({
   isSearchCanvasOpen,
@@ -91,18 +90,6 @@ export default function MobileOffcanvas({
     setIsSeachValueClear(!isClear);
   }, [searchValue]);
 
-  // const modalRoot = document.getElementById("modal-root");
-
-  // const portal = createPortal(
-  //   <SearchResultDropdown
-  //     searchResults={searchResults}
-  //     searchValue={searchValue}
-  //     extraClasses={"!top-[97px] text-white !border-none"}
-  //     isLoading={isResultLoading}
-  //   />,
-  //   modalRoot
-  // );
-
   return (
     <Offcanvas
       className="!h-[97px] border-0 bg-black"
@@ -131,7 +118,6 @@ export default function MobileOffcanvas({
               </button>
             )}
           </form>
-          {/* <FaSlidersH className="text-3xl text-white" /> */}
           <button onClick={closeSearchCanvas}>
             <BsXLg className="text-3xl text-white ml-4" />
           </button>

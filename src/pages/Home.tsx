@@ -5,15 +5,13 @@ import { GENRES } from "@/utils/const";
 
 export default function Home() {
   return (
-    <Layout>
-      <div>
-        <HomeSlider />
-        {GENRES.map((genre) => (
-          <div key={genre.id}>
-            <MovieGrid genre={genre} />
-          </div>
-        ))}
-      </div>
-    </Layout>
+    <div>
+      <HomeSlider />
+      {GENRES.map((genre) => (
+        <div key={genre.id}>
+          <MovieGrid genre={genre} />
+        </div>
+      ))}
+    </div>
   );
 }

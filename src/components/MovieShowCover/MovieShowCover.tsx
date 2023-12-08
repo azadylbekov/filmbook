@@ -8,7 +8,6 @@ export default function MovieShowCover({ backdrop }) {
   }
 
   return (
-    <>
     <div
       className="lg:absolute top-0 left-0 right-0 bottom-0 z-[-1] bg-no-repeat bg-cover lg:pb-[45%] pb-[60%] static"
       style={{
@@ -16,6 +15,5 @@ export default function MovieShowCover({ backdrop }) {
         backgroundImage: image,
       }}
     ></div>
-    </>
   );
 }
