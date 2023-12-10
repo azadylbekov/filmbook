@@ -1,8 +1,15 @@
+import React, { FC } from "react";
 
-export default function Container(props) {
+interface ContainerProps {
+	children?: React.ReactNode
+}
+
+const Container: FC<ContainerProps> = ({ children }: ContainerProps) => {
 	return (
 		<div className="container mx-auto">
-			{props.children}
+			{children}
 		</div>
 	)
 }
+
+export default Container;

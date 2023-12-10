@@ -1,7 +1,12 @@
 
+interface PersonBiographyProps {
+  biography: string,
+  showMore: boolean,
+  setShowMore: (isShowMore: boolean) => void
+}
 
-export default function PersonBiography({ biography, showMore, setShowMore }) {
-  const paragraphSplitter = (text) => {
+export default function PersonBiography({ biography, showMore, setShowMore }: PersonBiographyProps) {
+  const paragraphSplitter = (text: string) => {
     if (showMore) {
       return text.split(/\r?\n/);
     }

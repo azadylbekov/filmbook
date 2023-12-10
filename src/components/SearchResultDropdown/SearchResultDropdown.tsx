@@ -2,14 +2,22 @@ import { Link } from "react-router-dom";
 import moviePlaceholder from "@/assets/movie_placeholder.png";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 import SearchResultItem from "./SearchResultItem";
+import { FC } from "react";
+import { IMovie, IShow } from "@/types/types";
 
+interface SearchResultDropdownProps {
+  searchResults: IMovie[] | IShow[];
+  searchValue: string;
+  extraClasses: string;
+  isLoading: boolean;
+}
 
-export default function SearchResultDropdown({
+const SearchResultDropdown: FC<SearchResultDropdownProps> = ({
   searchResults,
   searchValue,
   extraClasses,
   isLoading,
-}) {
+}: SearchResultDropdownProps) => {
   const linkToMediaType = (result) => {
     return result.media_type == "tv"
       ? `/show/${result.id}`
@@ -57,4 +65,6 @@ export default function SearchResultDropdown({
       )}
     </div>
   );
-}
+};
+
+export default SearchResultDropdown;

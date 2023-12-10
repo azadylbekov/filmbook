@@ -1,4 +1,9 @@
-export default function ErrorMessage({ error }) {
+
+interface ErrorMessageProps {
+  error: object
+}
+
+export default function ErrorMessage({ error }: ErrorMessageProps) {
   console.log("error", error);
   return (
     <div className="bg-[#9f313196] border !border-[#ec5757] text-gray-200 rounded p-2 text-center">

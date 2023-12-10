@@ -6,6 +6,19 @@ import {
   formatOverview,
   formatVote,
 } from "@/utils/functions";
+import { IMovie, IShow } from "@/types/types";
+
+interface MovieShowInfoProps {
+  detail: IMovie | IShow,
+  type: 'movie' | 'show',
+  setShowTrailer: () => void,
+  trailer: any,
+  isFavorite: boolean,
+  toggleWatchlist: () => void,
+  addToFavorite: () =>  void,
+  isWatchlist: boolean,
+  children: React.ReactNode
+}
 
 export default function MovieShowInfo({
   detail,
@@ -17,7 +30,7 @@ export default function MovieShowInfo({
   addToFavorite,
   isWatchlist,
   children,
-}) {
+}: MovieShowInfoProps) {
   let title,
     tagline,
     voteAverage,

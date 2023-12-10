@@ -1,7 +1,14 @@
 import Modal from "react-bootstrap/Modal";
 import { FaX } from "react-icons/fa6";
 
-export default function TrailerModal({ showTrailer, setShowTrailer, title, trailer }) {
+interface TrailerModalProps {
+  showTrailer: () => void,
+  setShowTrailer: (show: boolean) => void,
+  title: string,
+  trailer: object
+}
+
+export default function TrailerModal({ showTrailer, setShowTrailer, title, trailer }: TrailerModalProps) {
   return (
     <Modal
       show={showTrailer}

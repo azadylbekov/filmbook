@@ -1,6 +1,11 @@
+import { IMovie } from "@/types/types";
 import { Link } from "react-router-dom";
 
-export default function SliderItem({ movie }) {
+interface SliderItemProps {
+  movie: IMovie
+}
+
+export default function SliderItem({ movie }: SliderItemProps) {
   return (
     <div className="w-full relative xl:pt-[56%] lg:pt-[46%] md:pt-[40%] pt-[30%] overflow-hidden">
       <Link to={`movie/${movie.id}`}>

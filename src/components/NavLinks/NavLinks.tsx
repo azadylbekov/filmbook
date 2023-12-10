@@ -4,9 +4,14 @@ import { NAV_LINKS } from "@/utils/const";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useEffect, useState, useRef } from "react";
 
-export default function NavLinks({ classes, animationClass = 'fadedown' }) {
-  const [isMounted, setIsMounted] = useState(false);
-  const isFirstRender = useRef(false);
+interface NAVLINKPROPS {
+  classes?: string,
+  animationClass?: string
+}
+
+export default function NavLinks({ classes, animationClass = 'fadedown' }: NAVLINKPROPS) {
+  const [isMounted, setIsMounted] = useState<Boolean>(false);
+  const isFirstRender = useRef<Boolean>(false);
 
 
   useEffect(() => {

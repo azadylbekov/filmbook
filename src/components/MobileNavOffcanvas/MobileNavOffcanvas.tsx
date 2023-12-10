@@ -2,8 +2,14 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import NavLinks from "../NavLinks/NavLinks";
 import Spinner from 'react-bootstrap/Spinner';
 
+interface MobileNavOffcanvasProps {
+  isOffcanvasOpen: boolean,
+  closeOffcanvas: () => void,
+  onLogin: () => void,
+  isLoginLoading: boolean,
+}
 
-export default function MobileNavOffcanvas({ isOffcanvasOpen, closeOffcanvas, onLogin, isLoginLoading }) {
+export default function MobileNavOffcanvas({ isOffcanvasOpen, closeOffcanvas, onLogin, isLoginLoading }: MobileNavOffcanvasProps) {
   return (
     <Offcanvas
       className="!w-[300px] !top-[65px] md:!top-[81px] lg:!top-[77px] bg-black"

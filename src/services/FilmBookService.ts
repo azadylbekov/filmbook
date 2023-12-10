@@ -2,6 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const API_URL = import.meta.env.VITE_API_URL;
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
+import { IMovie, IMovies } from "@/types/types";
+
 
 export const filmBookAPI = createApi({
   reducerPath: "filmBookAPI",
@@ -14,10 +16,10 @@ export const filmBookAPI = createApi({
     },
   }),
   endpoints: (build) => ({
-    getNewGuestSessionId: build.query({
+    getNewGuestSessionId: build.query<String, null>({
       query: () => "authentication/guest_session/new"
     }),
-    getPopularMovies: build.query({
+    getPopularMovies: build.query<IMovies, undefined>({
       query: () =>
         `discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,
     }),

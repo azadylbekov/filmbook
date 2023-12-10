@@ -1,7 +1,13 @@
+import { IPerson } from "@/types/types";
+import { FC } from 'react';
 
-export default function PersonInfo({ person }) {
+interface PersonProps {
+  person: IPerson
+}
 
-	const formatDate = (date) => {
+const PersonInfo: FC<PersonProps> = ({ person }) => {
+
+	const formatDate = (date: string | undefined) => {
     if (!date) {
       return "";
     }
@@ -24,3 +30,5 @@ export default function PersonInfo({ person }) {
     </>
   );
 }
+
+export default PersonInfo;

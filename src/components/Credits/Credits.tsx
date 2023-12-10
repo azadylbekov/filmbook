@@ -4,7 +4,12 @@ import { useGetCreditsQuery } from "@/services/FilmBookService";
 import CreditsLoader from "./CreditsLoader";
 import CreditItem from "./CreditItem";
 
-export default function Credits({ id, type }) {
+interface CreditsProps {
+  id: number,
+  type: string,
+}
+
+export default function Credits({ id, type }: CreditsProps) {
   const creditsData = useGetCreditsQuery({ id, type });
   const {
     data: credits,

@@ -68,7 +68,7 @@ export default function HomeSlider() {
               <SliderItemSkeleton />
             </SwiperSlide>
           ))}
-          {!areMoviesLoading && allMovies.map((movie: movieType, i: number) => (
+          {!areMoviesLoading && allMovies.map((movie: movieType) => (
             <SwiperSlide
               style={{ width: "1100px" }}
               className="w-full h-full"

@@ -14,6 +14,8 @@ import PersonBiography from "@/components/PersonBiography/PersonBiography";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import PersonInfoSkeleton from "@/components/PersonInfo/PersonInfoSkeleton";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
+import { IPerson } from "@/types/types";
+
 
 export default function Person() {
   const page = useParams();
@@ -28,6 +30,8 @@ export default function Person() {
     isLoading: isPersonLoading,
     error: personError,
   } = personData;
+  // const person: IPerson = personData;
+
 
   const [getMoviesTrigger, moviesData] = useLazyGetMoviesWithPersonQuery();
   const {

@@ -1,5 +1,4 @@
 import HomeSlider from "@/components/HomeSlider/HomeSlider";
-import Layout from "@/components/Layout/Layout";
 import MovieGrid from "@/components/MovieGrid/MovieGrid";
 import { GENRES } from "@/utils/const";
 

@@ -1,6 +1,10 @@
 import noMovieImg from '@/assets/noMovieImage.png';
 
-export default function MovieShowCover({ backdrop }) {
+interface MovieShowCoverProps { 
+  backdrop?: string
+}
+
+export default function MovieShowCover({ backdrop }: MovieShowCoverProps) {
 
   let image = `url(${noMovieImg})`;
   if (backdrop) {

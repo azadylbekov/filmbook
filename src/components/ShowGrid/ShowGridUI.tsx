@@ -1,9 +1,15 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import ShowCard from "../ShowCard/ShowCard";
+import { IShow } from "@/types/types";
+
+interface MovieGridUIProps {
+  isNav: boolean,
+  shows: IShow[]
+}
 
 
-export default function MovieGridUI({ isNav, shows }) {
+export default function MovieGridUI({ isNav, shows }: MovieGridUIProps) {
   return (
     <Swiper
       modules={[isNav && Navigation]}

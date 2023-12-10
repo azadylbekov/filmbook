@@ -1,11 +1,12 @@
+import React, { FC } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 type LayoutProps = {
-  main: React.ReactNode;
-}
+  children?: React.ReactNode;
+};
 
-export default function Layout({ children }) {
+const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div className="flex flex-col min-h-screen justify-between">
       <div>
@@ -15,4 +16,6 @@ export default function Layout({ children }) {
       <Footer />
     </div>
   );
-}
+};
+
+export default Layout;

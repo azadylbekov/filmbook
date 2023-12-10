@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import emptyAvatar from "@/assets/empty_avatar.webp";
+import { IPerson } from "@/types/types";
 
-export default function CreditItem({ person }) {
+interface CreditItemProps { 
+  person: IPerson
+}
+
+export default function CreditItem({ person }: CreditItemProps) {
 
   const personImg = (person) => {
     let personImg = person.profile_path

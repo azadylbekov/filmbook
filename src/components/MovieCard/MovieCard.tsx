@@ -1,20 +1,12 @@
 import { Link } from "react-router-dom";
 import moviePlaceholder from "@/assets/movie_placeholder.png";
+import { IMovie } from "@/types/types";
 
-type movieType = {
-  movie: {
-    backdrop_path?: string;
-    original_title?: string;
-    overview?: string;
-    title: string;
-    poster_path: string;
-    id: string;
-    vote_average: number;
-    release_date: string;
-  };
+type MovieCardProps = {
+  movie: IMovie
 };
 
-export default function MovieCard({ movie }: movieType) {
+export default function MovieCard({ movie }: MovieCardProps) {
   const formatDate = (date: string) => {
     return new Date(date).getFullYear();
   };

@@ -4,15 +4,13 @@ import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa";
 import MovieGridUI from "./MovieGridUI";
 import { useGetMoviesByGenreQuery } from "@/services/FilmBookService";
+import { IGenre } from "@/types/types";
 
-type GenreType = {
-  genre: {
-    id: string;
-    name: string;
-  };
+type MovieGridProps = {
+  genre: IGenre
 };
 
-export default function MovieGrid({ genre }: GenreType) {
+export default function MovieGrid({ genre }: MovieGridProps) {
 
   const {
     data: moviesData,

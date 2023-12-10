@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import moviePlaceholder from "@/assets/movie_placeholder.png";
+import { IShow } from "@/types/types";
 
-export default function ShowCard({show}) {
+interface ShowCardProps {
+  show: IShow
+}
+
+export default function ShowCard({show}: ShowCardProps) {
   const formatDate = (date: string) => {
     return new Date(date).getFullYear();
   };

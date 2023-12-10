@@ -1,6 +1,10 @@
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
-export default function MovieGridSkeleton({ count = 10 }) {
+interface MovieGridSkeletonProps {
+	count?: number
+}
+
+export default function MovieGridSkeleton({ count = 10 }: MovieGridSkeletonProps) {
 	const skeletons = Array.from(Array(count).keys())
 
 	return (

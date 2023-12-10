@@ -3,6 +3,13 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { BsTrash3, BsTrash3Fill } from "react-icons/bs";
 import Rating from "react-rating";
 
+interface RatingDropdownProps {
+  isRatingDropOpen: boolean,
+  setIsRatingDropOpen: (isOpen: boolean) => void,
+  rating: number,
+  ratingChangeHandler: () => void,
+  deleteRatingHandler: () => void,
+}
 
 export default function RatingDropdown({
   isRatingDropOpen,
@@ -10,7 +17,7 @@ export default function RatingDropdown({
   rating,
   ratingChangeHandler,
   deleteRatingHandler,
-}) {
+}: RatingDropdownProps) {
   return (
     <Dropdown
       drop="down-centered"

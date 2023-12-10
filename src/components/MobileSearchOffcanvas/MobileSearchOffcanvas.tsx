@@ -6,12 +6,19 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useLazyGetSearchResultsQuery } from "@/services/FilmBookService";
 import SearchResultDropdown from "@/components/SearchResultDropdown/SearchResultDropdown";
 
+interface MobileOffcanvasProps { 
+  isSearchCanvasOpen: boolean,
+  mobInputStyles: string,
+  setIsSearchCanvasOpen: () => void,
+  closeSearchCanvas: () => void,
+}
+
 export default function MobileOffcanvas({
   isSearchCanvasOpen,
   mobInputStyles,
   setIsSearchCanvasOpen,
   closeSearchCanvas,
-}) {
+}: MobileOffcanvasProps) {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchValueClear, setIsSeachValueClear] = useState(true);
@@ -57,7 +64,7 @@ export default function MobileOffcanvas({
     setSearchValue(inputValue);
   }, []);
 
-  const fetchSearchResult = (inputValue) => {
+  const fetchSearchResult = (inputValue: string) => {
     if (!inputValue) {
       setIsSearchDropdownShow(false);
       return;

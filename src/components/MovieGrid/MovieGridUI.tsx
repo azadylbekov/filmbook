@@ -4,8 +4,15 @@ import MovieCard from "@/components/MovieCard/MovieCard";
 import "swiper/css";
 import "swiper/css/navigation";
 import MovieCardSkeleton from "./MovieCardSkeleton";
+import { IMovie } from "@/types/types";
 
-export default function MovieGridUI({ isNav, movies, isLoading }) {
+interface MovieGridUIProps { 
+  isNav: boolean,
+  movies: IMovie[],
+  isLoading: boolean
+}
+
+export default function MovieGridUI({ isNav, movies, isLoading }: MovieGridUIProps) {
 
   const skeletons = [0, 1, 2, 3, 4];
 
@@ -43,7 +50,7 @@ export default function MovieGridUI({ isNav, movies, isLoading }) {
           </SwiperSlide>
         ))}
 
-        {!isLoading && movies.map((movie, index) => (
+        {!isLoading && movies.map((movie) => (
           <SwiperSlide key={movie.id}>
             <MovieCard movie={movie} />
           </SwiperSlide>
