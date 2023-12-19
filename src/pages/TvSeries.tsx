@@ -90,8 +90,6 @@ const TvSeries = () => {
   }, [genre, year, sortBy, country]);
 
   const fetchShowsQuery = () => {
-    console.log("page", pageRef.current);
-    console.log("query", queryRef.current);
     getShowsTrigger({ page: pageRef.current, query: queryRef.current });
   };
 

@@ -39,7 +39,6 @@ const Search = () => {
   };
 
   useEffect(() => {
-    console.log("search result data", searchResultsData);
     if (searchResultsData.status == "fulfilled") {
       pageRef.current = pageRef.current + 1;
       let isCurrentSameAsTotalPage = pageRef.current <= result.total_pages;
