@@ -2,7 +2,7 @@ import { useRouteError, Link } from "react-router-dom";
 import { FaAngleLeft } from "react-icons/fa";
 
 
-export default function ErrorPage() {
+const ErrorPage = () => {
   const error = useRouteError();
   console.error(error);
 
@@ -20,3 +20,5 @@ export default function ErrorPage() {
     </div>
   );
 }
+
+export default ErrorPage;

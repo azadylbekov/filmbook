@@ -1,9 +1,13 @@
+import { IError, SerializedError } from "@/types/types";
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { FC } from "react";
+
 
 interface ErrorMessageProps {
-  error: object
+  error: FetchBaseQueryError | SerializedError | IError;
 }
 
-export default function ErrorMessage({ error }: ErrorMessageProps) {
+const ErrorMessage: FC<ErrorMessageProps> = ({ error }) => {
   console.log("error", error);
   return (
     <div className="bg-[#9f313196] border !border-[#ec5757] text-gray-200 rounded p-2 text-center">
@@ -21,3 +25,5 @@ export default function ErrorMessage({ error }: ErrorMessageProps) {
     </div>
   );
 }
+
+export default ErrorMessage;

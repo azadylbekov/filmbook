@@ -1,11 +1,8 @@
 import Container from "@/components/Container";
-import Layout from "@/components/Layout/Layout";
 import { useEffect, useState } from "react";
-import MovieCard from "@/components/MovieCard/MovieCard";
 import Select from "react-select";
 import { customStyles } from "@/utils/selectStyles";
-import ShowCard from "@/components/ShowCard/ShowCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setFavoriteMovies,
   setFavoriteTv,
@@ -13,20 +10,19 @@ import {
 import { useLazyGetFavoriteListQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
+import { IMovie, IShow, ICategory } from "@/types/types";
+import { CATEGORY_OPTIONS } from "@/constants/const";
+import { useAppSelector } from "@/store/hooks";
+import EntityCard from "@/components/EntityCard/EntityCard";
 
-const categoryOptions = [
-  { label: "Movies", value: "movies" },
-  { label: "Tv Series", value: "tv" },
-];
-
-export default function Favorites() {
-  const [movies, setMovies] = useState([]);
-  const [shows, setShows] = useState([]);
-  const [category, setCategory] = useState(categoryOptions[0]);
+const Favorites = () => {
+  const [movies, setMovies] = useState<Array<IMovie>>([]);
+  const [shows, setShows] = useState<Array<IShow>>([]);
+  const [category, setCategory] = useState<ICategory>(CATEGORY_OPTIONS[0]);
   const dispatch = useDispatch();
-  const guestSessionId = useSelector((state) => state.guestId.value);
-  const [noMovies, setNoMovies] = useState(false);
-  const [noShows, setNoShows] = useState(false);
+  const guestSessionId = useAppSelector((state) => state.guestId.value);
+  const [noMovies, setNoMovies] = useState<boolean>(false);
+  const [noShows, setNoShows] = useState<boolean>(false);
 
   const [getFavoriteTrigger, favoriteListData] = useLazyGetFavoriteListQuery();
   const {
@@ -57,18 +53,18 @@ export default function Favorites() {
     getFavoriteTrigger({ guestSessionId, category: category.value });
   };
 
-  const categoryChange = (category) => {
+  const categoryChange = (category: any) => {
     setCategory(category);
   };
 
   return (
     <Container>
-      <h3 className="text-white text-3xl mb-8 mt-10">Favorites</h3>
+      <h3 className="dark:text-[#ffffff] text-[#000000] text-3xl mb-8 mt-10">Favorites</h3>
       <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
         <div className="md:w-auto w-full mb-2">
           <Select
             isSearchable={false}
-            options={categoryOptions}
+            options={CATEGORY_OPTIONS}
             styles={customStyles}
             value={category}
             onChange={categoryChange}
@@ -81,25 +77,27 @@ export default function Favorites() {
           {category.value == "movies" &&
             movies.map((movie) => (
               <div className="mb-4" key={movie.id}>
-                <MovieCard movie={movie} />
+                <EntityCard type="movie" entity={movie} />
               </div>
             ))}
           {category.value == "tv" &&
             shows.map((show) => (
               <div className="mb-4" key={show.id}>
-                <ShowCard show={show} />
+                <EntityCard type="show" entity={show} />
               </div>
             ))}
         </div>
       )}
       {isFavoriteListLoading && <MovieGridSkeleton count={5} />}
       {category.value == "movies" && noMovies && (
-        <h3 className="text-xl text-white">You have no favorite movies</h3>
+        <h3 className="text-xl dark:text-[#ffffff] text-[#000000]">You have no favorite movies</h3>
       )}
       {category.value == "tv" && noShows && (
-        <h3 className="text-xl text-white">You have no favorite tv series</h3>
+        <h3 className="text-xl dark:text-[#ffffff] text-[#000000]">You have no favorite tv series</h3>
       )}
       {favoriteListError && <ErrorMessage error={favoriteListError} />}
     </Container>
   );
 }
+
+export default Favorites;

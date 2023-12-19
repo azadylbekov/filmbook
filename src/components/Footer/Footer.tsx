@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <div className="bg-black border-top !border-[#3c3c3c] text-white h-[100px]">
       <div className="h-full flex items-end justify-center">
@@ -13,3 +13,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default Footer;

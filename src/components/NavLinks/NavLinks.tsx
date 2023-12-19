@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import styles from "./NavLinks.module.scss";
-import { NAV_LINKS } from "@/utils/const";
+import { NAV_LINKS } from "@/constants/const";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, FC } from "react";
 
-interface NAVLINKPROPS {
+interface NavLinksProps {
   classes?: string,
   animationClass?: string
 }
 
-export default function NavLinks({ classes, animationClass = 'fadedown' }: NAVLINKPROPS) {
+const NavLinks: FC<NavLinksProps> = ({ classes, animationClass = 'fadedown' }) => {
   const [isMounted, setIsMounted] = useState<Boolean>(false);
   const isFirstRender = useRef<Boolean>(false);
 
@@ -58,4 +58,6 @@ export default function NavLinks({ classes, animationClass = 'fadedown' }: NAVLI
     </>
   );
 }
+
+export default NavLinks;
 

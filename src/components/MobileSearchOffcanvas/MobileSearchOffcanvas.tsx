@@ -1,33 +1,25 @@
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { BsXLg } from "react-icons/bs";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useLocation } from "react-router-dom";
+import useDebounce from "@/hooks/useDebounce";
 import { useLazyGetSearchResultsQuery } from "@/services/FilmBookService";
 import SearchResultDropdown from "@/components/SearchResultDropdown/SearchResultDropdown";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setSearchCanvas } from "@/store/reducers/offcanvasSlice";
+import MobileSearchForm from "./MobileSearchForm";
 
-interface MobileOffcanvasProps { 
-  isSearchCanvasOpen: boolean,
-  mobInputStyles: string,
-  setIsSearchCanvasOpen: () => void,
-  closeSearchCanvas: () => void,
-}
-
-export default function MobileOffcanvas({
-  isSearchCanvasOpen,
-  mobInputStyles,
-  setIsSearchCanvasOpen,
-  closeSearchCanvas,
-}: MobileOffcanvasProps) {
+const MobileOffcanvas = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchValueClear, setIsSeachValueClear] = useState(true);
   const [isSearchDropdownShow, setIsSearchDropdownShow] = useState(false);
+  const isSearchCanvasOpen = useAppSelector(
+    (state) => state.offcanvas.isSearchOffcanvasOpen
+  );
 
-  const navigate = useNavigate();
   const location = useLocation();
-
-
+  const dispatch = useAppDispatch();
   const debounce = useDebounce();
 
   const [getSearchResultsTrigger, searchResultsData] =
@@ -48,16 +40,16 @@ export default function MobileOffcanvas({
   }, [searchResultsData]);
 
   useEffect(() => {
-    setSearchValue('');
+    setSearchValue("");
     setSearchResults([]);
     setTimeout(() => {
       setIsSearchDropdownShow(false);
-    }, 500)
-  }, [location.state])
+    }, 500);
+  }, [location.state]);
 
-  const searchChange = useCallback((e) => {
+  const searchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
-    let trimmedInputValue = inputValue.trim()
+    let trimmedInputValue = inputValue.trim();
 
     setIsSearchDropdownShow(false);
     debounce(() => fetchSearchResult(trimmedInputValue), 1000);
@@ -75,20 +67,11 @@ export default function MobileOffcanvas({
     getSearchResultsTrigger({ query: inputValue, page: 1 }, false);
   };
 
-  const onSearchSubmit = (e) => {
-    e.preventDefault();
-    if (!searchValue) {
-      return;
-    }
-    // setIsSearchDropdownShow(false);
-    navigate("/search", { state: { query: searchValue } });
-  };
-
   const clearSearch = () => {
+    setIsSearchDropdownShow(false);
     setTimeout(() => {
       setSearchResults([]);
       setSearchValue("");
-      setIsSearchDropdownShow(false);
     }, 100);
   };
 
@@ -97,36 +80,31 @@ export default function MobileOffcanvas({
     setIsSeachValueClear(!isClear);
   }, [searchValue]);
 
+  const closeSearchCanvas = () => {
+    dispatch(setSearchCanvas(false));
+  };
+
+  const setIsSearchCanvasOpen = (isOpen: boolean) => {
+    dispatch(setSearchCanvas(isOpen));
+  };
+
   return (
     <Offcanvas
-      className="!h-[97px] border-0 bg-black"
+      className="!h-[67px] border-0 bg-[#ffffff] dark:bg-black"
       show={isSearchCanvasOpen}
       onHide={setIsSearchCanvasOpen}
       placement="top"
     >
       <Offcanvas.Body className="flex justify-center">
         <div className="flex items-center w-full">
-          <form className="mr-3 grow relative" onSubmit={onSearchSubmit}>
-            <input
-              type="text"
-              placeholder="Search..."
-              className={
-                mobInputStyles + " w-full pl-2 py-2 rounded-lg outline-none"
-              }
-              onChange={searchChange}
-              value={searchValue}
-            />
-            {!isSearchValueClear && (
-              <button type="button" onClick={clearSearch}>
-                <BsXLg
-                  className="text-xl text-white ml-2 absolute top-[10px] right-3"
-                  style={{ zIndex: "2000" }}
-                />
-              </button>
-            )}
-          </form>
+          <MobileSearchForm
+            searchChange={searchChange}
+            searchValue={searchValue}
+            isSearchValueClear={isSearchValueClear}
+            clearSearch={clearSearch}
+          />
           <button onClick={closeSearchCanvas}>
-            <BsXLg className="text-3xl text-white ml-4" />
+            <BsXLg className="text-3xl text-[#010101] dark:text-[#fefefe] ml-4" />
           </button>
         </div>
       </Offcanvas.Body>
@@ -141,3 +119,5 @@ export default function MobileOffcanvas({
     </Offcanvas>
   );
 }
+
+export default MobileOffcanvas;

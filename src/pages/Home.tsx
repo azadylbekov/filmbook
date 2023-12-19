@@ -1,8 +1,9 @@
 import HomeSlider from "@/components/HomeSlider/HomeSlider";
 import MovieGrid from "@/components/MovieGrid/MovieGrid";
-import { GENRES } from "@/utils/const";
+import { GENRES } from "@/constants/const";
 
-export default function Home() {
+const Home = () => {
+
   return (
     <div>
       <HomeSlider />
@@ -14,3 +15,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

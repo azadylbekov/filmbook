@@ -1,9 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
-import Layout from "@/components/Layout/Layout";
 import Container from "@/components/Container";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchTvGenres } from "@/store/reducers/genreSlice";
-import { fetchCountries } from "@/store/reducers/countriesSlice";
 import {
   formatGenresOptions,
   handleNumberOnlyInput,
@@ -13,33 +9,36 @@ import {
 import { customStyles } from "@/utils/selectStyles";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { sortByOptions } from "@/utils/const";
-import ShowCard from "@/components/ShowCard/ShowCard";
-import { useLazyGetShowsWithFilterQuery } from "@/services/FilmBookService";
+import { sortByOptions } from "@/constants/const";
+import { useLazyGetShowsWithFilterQuery, useLazyGetCountriesQuery, useLazyGetGenresQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useDidMountEffect } from "@/hooks/useDidMountEffect";
+import useDidMountEffect from "@/hooks/useDidMountEffect";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
+import { ICategory, IGenre, IShow, ICountry } from "@/types/types";
+import { useAppSelector } from "@/store/hooks";
+import EntityCard from "@/components/EntityCard/EntityCard";
 
-export default function TvSeries() {
-  const dispatch = useDispatch();
-  const genres = useSelector((state) => state.genre.tv);
-  const countries = useSelector((state) => state.countries.value);
-  const [allTvGenres, setAllTvGenres] = useState();
-  const [yearOptions, setYearOptions] = useState([]);
-  const [allCountries, setAllCountries] = useState([]);
+const TvSeries = () => {
+  const genres = useAppSelector((state) => state.genre.tv);
+  const countries = useAppSelector((state) => state.countries.value);
+  const [allTvGenres, setAllTvGenres] = useState<IGenre[]>([]);
+  const [yearOptions, setYearOptions] = useState<ICategory[]>([]);
+  const [allCountries, setAllCountries] = useState<ICountry[] | ICategory[]>(
+    []
+  );
 
-  const [genre, setGenre] = useState("");
-  const [year, setYear] = useState("");
-  const [sortBy, setSortBy] = useState(sortByOptions[1]);
-  const [country, setCountry] = useState("");
+  const [genre, setGenre] = useState<ICategory | null>(null);
+  const [year, setYear] = useState<ICategory | null>(null);
+  const [sortBy, setSortBy] = useState<ICategory | null>(sortByOptions[1]);
+  const [country, setCountry] = useState<ICategory | null>(null);
 
-  const [shows, setShows] = useState([]);
-  const [hasMore, setHasMore] = useState(false);
-  const pageRef = useRef(1);
-  const queryRef = useRef("");
+  const [shows, setShows] = useState<IShow[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const pageRef = useRef<number>(1);
+  const queryRef = useRef<string>("");
 
-  const [noResults, setNoResults] = useState(false);
+  const [noResults, setNoResults] = useState<boolean>(false);
 
   const [getShowsTrigger, showsData] = useLazyGetShowsWithFilterQuery();
   const {
@@ -48,13 +47,18 @@ export default function TvSeries() {
     error: showsError,
   } = showsData;
 
+  const [getCountriesTrigger, countriesData] = useLazyGetCountriesQuery();
+  const [getGenresTrigger, genresData] = useLazyGetGenresQuery();
+  
+
   useEffect(() => {
     setYearOptions(generateYears());
   }, []);
 
   useEffect(() => {
     if (genres.length === 0) {
-      dispatch(fetchTvGenres());
+      getGenresTrigger("tv");
+
     }
     const formattedGenres = formatGenresOptions(genres);
     setAllTvGenres(formattedGenres);
@@ -62,15 +66,15 @@ export default function TvSeries() {
 
   useEffect(() => {
     if (countries.length === 0) {
-      dispatch(fetchCountries());
+      getCountriesTrigger();
     }
 
     const formattedCountries = formatCountryOptions(countries);
     setAllCountries(formattedCountries);
   }, [countries]);
 
-  const formatCountryOptions = (countries) => {
-    return countries.map((country) => {
+  const formatCountryOptions = (countries: ICountry[]) => {
+    return countries.map((country: ICountry) => {
       return {
         label: country.english_name,
         value: country.iso_3166_1,
@@ -94,10 +98,11 @@ export default function TvSeries() {
   useEffect(() => {
     if (showsData.status == "fulfilled") {
       pageRef.current = pageRef.current + 1;
-      let isCurrentSameAsTotalPage = pageRef.current <= showResults.total_pages;
+      let isCurrentSameAsTotalPage =
+        pageRef.current <= showResults!.total_pages;
       setHasMore(isCurrentSameAsTotalPage);
 
-      setShows((prevResult) => [...prevResult, ...showResults.results]);
+      setShows((prevResult) => [...prevResult, ...showResults!.results]);
     }
   }, [showsData]);
 
@@ -122,19 +127,19 @@ export default function TvSeries() {
     return query;
   };
 
-  const genreChange = useCallback((genre) => {
+  const genreChange = useCallback((genre: ICategory) => {
     setGenre(genre);
   }, []);
 
-  const yearChange = useCallback((year) => {
+  const yearChange = useCallback((year: ICategory) => {
     setYear(year);
   }, []);
 
-  const sortByChange = useCallback((sortBy) => {
+  const sortByChange = useCallback((sortBy: ICategory) => {
     setSortBy(sortBy);
   }, []);
 
-  const countryChange = useCallback((country) => {
+  const countryChange = useCallback((country: ICategory) => {
     setCountry(country);
   }, []);
 
@@ -146,7 +151,7 @@ export default function TvSeries() {
   }, [areShowsLoading, areShowsEmpty, showsError]);
 
   return (
-    <div className="text-white py-10">
+    <div className="dark:text-[#ffffff] text-[#000000] py-10">
       <Container>
         <h2 className="text-3xl mb-8">TV Series</h2>
         <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
@@ -205,13 +210,11 @@ export default function TvSeries() {
           loader={<MovieGridSkeleton />}
         >
           <div className="lg:mt-5 mt-2 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid gap-4 grid-cols-2">
-            {shows.map((show) => {
-              return (
-                <div className="mb-4" key={show.id}>
-                  <ShowCard show={show} />
-                </div>
-              );
-            })}
+            {shows.map((show) => (
+              <div className="mb-4" key={show.id}>
+                <EntityCard type="show" entity={show} />
+              </div>
+            ))}
           </div>
         </InfiniteScroll>
         {noResults && <h3 className="my-2 text-xl">No results</h3>}
@@ -219,4 +222,6 @@ export default function TvSeries() {
       </Container>
     </div>
   );
-}
+};
+
+export default TvSeries;

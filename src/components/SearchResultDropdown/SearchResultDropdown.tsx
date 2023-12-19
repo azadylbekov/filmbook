@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import moviePlaceholder from "@/assets/movie_placeholder.png";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 import SearchResultItem from "./SearchResultItem";
 import { FC } from "react";
@@ -12,22 +11,18 @@ interface SearchResultDropdownProps {
   isLoading: boolean;
 }
 
+type MovieOrShow = IMovie | IShow;
+
 const SearchResultDropdown: FC<SearchResultDropdownProps> = ({
   searchResults,
   searchValue,
   extraClasses,
   isLoading,
-}: SearchResultDropdownProps) => {
-  const linkToMediaType = (result) => {
+}) => {
+  const linkToMediaType = (result: MovieOrShow) => {
     return result.media_type == "tv"
       ? `/show/${result.id}`
       : `/movie/${result.id}`;
-  };
-
-  const movieImg = (result) => {
-    return result.poster_path
-      ? `https://image.tmdb.org/t/p/w92/${result.poster_path}`
-      : moviePlaceholder;
   };
 
   const noResults = searchResults.length === 0;

@@ -1,10 +1,11 @@
+import { FC } from "react";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 
 interface MovieGridSkeletonProps {
 	count?: number
 }
 
-export default function MovieGridSkeleton({ count = 10 }: MovieGridSkeletonProps) {
+const MovieGridSkeleton: FC<MovieGridSkeletonProps> = ({ count = 10 }) => {
 	const skeletons = Array.from(Array(count).keys())
 
 	return (
@@ -15,3 +16,5 @@ export default function MovieGridSkeleton({ count = 10 }: MovieGridSkeletonProps
 		</div>
 	)
 }
+
+export default MovieGridSkeleton;

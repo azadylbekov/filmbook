@@ -1,9 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import movie1 from "@/assets/images/slider/movie1.jpg";
-import movie2 from "@/assets/images/slider/movie2.jpg";
-import movie3 from "@/assets/images/slider/movie3.jpg";
-import movie4 from "@/assets/images/slider/movie4.jpg";
 import { useGetPopularMoviesQuery } from "@/services/FilmBookService";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,30 +8,8 @@ import "swiper/css/autoplay";
 import SliderItemSkeleton from "./SliderItemSkeleton";
 import SliderItem from "./SliderItem";
 
-const MOVIES = [
-  {
-    img: movie1,
-  },
-  {
-    img: movie2,
-  },
-  {
-    img: movie3,
-  },
-  {
-    img: movie4,
-  },
-];
 
-type movieType = {
-  backdrop_path: string;
-  original_title: string;
-  overview: string;
-  title?: string;
-  id: string;
-};
-
-export default function HomeSlider() {
+const HomeSlider = () => {
   const skeletons = [0, 1, 2, 3, 4, 5];
 
   const moviesData = useGetPopularMoviesQuery();
@@ -68,7 +42,7 @@ export default function HomeSlider() {
               <SliderItemSkeleton />
             </SwiperSlide>
           ))}
-          {!areMoviesLoading && allMovies.map((movie: movieType) => (
+          {!areMoviesLoading && allMovies.map((movie) => (
             <SwiperSlide
               style={{ width: "1100px" }}
               className="w-full h-full"
@@ -83,6 +57,4 @@ export default function HomeSlider() {
   );
 }
 
-{
-  /* autoplay={{delay: 4000}} */
-}
+export default HomeSlider;

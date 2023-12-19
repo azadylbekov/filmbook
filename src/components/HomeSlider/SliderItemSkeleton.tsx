@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 
-export default function SliderItemSkeleton() {
+const SliderItemSkeleton = () => {
   return (
     <div className="w-full">
       <Skeleton
@@ -12,3 +12,5 @@ export default function SliderItemSkeleton() {
     </div>
   );
 }
+
+export default SliderItemSkeleton;

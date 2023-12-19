@@ -4,7 +4,7 @@ interface ContainerProps {
 	children?: React.ReactNode
 }
 
-const Container: FC<ContainerProps> = ({ children }: ContainerProps) => {
+const Container: FC<ContainerProps> = ({ children }) => {
 	return (
 		<div className="container mx-auto">
 			{children}

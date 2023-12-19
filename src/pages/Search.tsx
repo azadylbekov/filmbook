@@ -1,19 +1,19 @@
 import { useState, useEffect, useRef } from "react";
-import Layout from "@/components/Layout/Layout";
 import Container from "@/components/Container";
-import MovieCard from "@/components/MovieCard/MovieCard";
-import ShowCard from "@/components/ShowCard/ShowCard";
 import { useLazyGetSearchResultsQuery } from "@/services/FilmBookService";
 import { useLocation } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
+import { ISearchResult } from "@/types/types";
+import { IShow, IMovie } from "@/types/types";
+import EntityCard from "@/components/EntityCard/EntityCard";
 
-export default function Search() {
+const Search = () => {
   const location = useLocation();
 
-  const [searchResult, setSearchResult] = useState([]);
-  const [hasMore, setHasMore] = useState(false);
+  const [searchResult, setSearchResult] = useState<ISearchResult[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(false);
 
   const [getSearchResultsTrigger, searchResultsData] =
     useLazyGetSearchResultsQuery();
@@ -24,8 +24,8 @@ export default function Search() {
     error: resultError,
   } = searchResultsData;
 
-  const pageRef = useRef(1);
-  const queryRef = useRef("");
+  const pageRef = useRef<number>(1);
+  const queryRef = useRef<string>("");
 
   useEffect(() => {
     queryRef.current = location.state.query;
@@ -53,7 +53,7 @@ export default function Search() {
   const noResult = !isResultLoading && isSearchResultEmpty && !resultError;
 
   return (
-    <div className="text-white py-10">
+    <div className="text-[#010101] dark:text-[#fefefe] py-10">
       <Container>
         <h2 className="text-2xl">Results for "{location.state.query}"</h2>
         <InfiniteScroll
@@ -66,17 +66,19 @@ export default function Search() {
             {searchResult.map((result) => (
               <div className="mb-4" key={result.id}>
                 {result.media_type == "tv" ? (
-                  <ShowCard show={result} />
+                  <EntityCard type="show" entity={result as IShow} />
                 ) : (
-                  <MovieCard movie={result} />
+                  <EntityCard type="movie" entity={result as IMovie} />
                 )}
               </div>
             ))}
           </div>
         </InfiniteScroll>
-        {noResult && <h3 className="mt-2 text-xl">No Results found</h3>}
+        {noResult && <h3 className="mt-2 text-[#010101] dark:text-[#fefefe] text-xl">No Results found</h3>}
         {resultError && <ErrorMessage error={resultError} />}
       </Container>
     </div>
   );
 }
+
+export default Search;

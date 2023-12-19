@@ -1,3 +1,5 @@
+import { ICategory, IGenre } from "@/types/types";
+
 export const formatDate = (date: string) => {
 	if (!date) {
 		return '';
@@ -5,8 +7,8 @@ export const formatDate = (date: string) => {
 	return new Date(date).getFullYear();
 };
 
-export const formatGenresOptions = (genres) => {
-	return genres.map((genre) => {
+export const formatGenresOptions = (genres: IGenre[]) => {
+	return genres.map((genre: IGenre) => {
 		return {
 			label: genre.name,
 			value: genre.id,
@@ -15,8 +17,8 @@ export const formatGenresOptions = (genres) => {
 };
 
 
-export const handleNumberOnlyInput = (e) => {
-	const key = e.nativeEvent.keyCode || e.nativeEvent.charCode;
+export const handleNumberOnlyInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+	const key = e.nativeEvent.code ||  e.nativeEvent.charCode || e.nativeEvent.keyCode;
 
 	const backAndDel = key == 8 || key == 46;
 
@@ -42,7 +44,8 @@ export const generateYears = () => {
 	return options.reverse();
 };
 
-export const formatOptionLabel = ({ value, label, icon }) => (
+
+export const formatOptionLabel = ({ value, label, icon }: ICategory) => (
 	<div className="flex items-center">
 		<div className="mr-3">{label}</div>
 		<div>
@@ -68,11 +71,11 @@ export const formatBudget = (budget: number) => {
 	return '';
 };
 
-export const formatOverview = (text) => {
+export const formatOverview = (text: string) => {
 	const formattedText = text.split(" ").slice(0, 10).join(" ");
 	return formattedText + "...";
 };
 
-export const formatVote = (average) => {
+export const formatVote = (average: number | string) => {
 	return Number(average).toFixed(1)
 };

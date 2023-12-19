@@ -1,11 +1,7 @@
 import Container from "@/components/Container";
-import Layout from "@/components/Layout/Layout";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchGenres } from "@/store/reducers/genreSlice";
-import MovieCard from "@/components/MovieCard/MovieCard";
 import { useLocation } from "react-router-dom";
 import { customStyles } from "@/utils/selectStyles";
 import {
@@ -14,25 +10,28 @@ import {
   generateYears,
   formatOptionLabel,
 } from "@/utils/functions";
-import { sortByOptions } from "@/utils/const";
-import { useLazyGetMoviesWithFilterQuery } from "@/services/FilmBookService";
+import { sortByOptions } from "@/constants/const";
+import { useLazyGetMoviesWithFilterQuery, useLazyGetGenresQuery } from "@/services/FilmBookService";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { useDidMountEffect } from "@/hooks/useDidMountEffect";
+import useDidMountEffect from "@/hooks/useDidMountEffect";
+import { ICategory, IGenre, IMovie } from "@/types/types";
+import { useAppSelector } from "@/store/hooks";
+import EntityCard from "@/components/EntityCard/EntityCard";
 
-export default function Movies() {
-  const dispatch = useDispatch();
-  const genres = useSelector((state) => state.genre.movie);
 
-  const [genre, setGenre] = useState("");
-  const [year, setYear] = useState("");
-  const [sortBy, setSortBy] = useState(sortByOptions[1]);
-  const [allMovieGenres, setAllMovieGenres] = useState([]);
-  const [yearOptions, setYearOptions] = useState([]);
-  const [noResults, setNoResults] = useState(false);
+const Movies = () => {
+  const genres = useAppSelector((state) => state.genre.movie);
 
-  const [movies, setMovies] = useState([]);
+  const [genre, setGenre] = useState<ICategory | null>(null);
+  const [year, setYear] = useState<ICategory | null>(null);
+  const [sortBy, setSortBy] = useState<ICategory>(sortByOptions[1]);
+  const [allMovieGenres, setAllMovieGenres] = useState<Array<IGenre>>([]);
+  const [yearOptions, setYearOptions] = useState<Array<ICategory>>([]);
+  const [noResults, setNoResults] = useState<boolean>(false);
+
+  const [movies, setMovies] = useState<IMovie[]>([]);
 
   const [getMoviesTrigger, moviesData] = useLazyGetMoviesWithFilterQuery();
   const {
@@ -40,6 +39,8 @@ export default function Movies() {
     isFetching: areMoviesLoading,
     error: moviesError,
   } = moviesData;
+
+  const [getGenresTrigger, genresData] = useLazyGetGenresQuery();
 
   const { state } = useLocation();
 
@@ -49,7 +50,7 @@ export default function Movies() {
 
   useEffect(() => {
     if (genres.length === 0) {
-      dispatch(fetchGenres());
+      getGenresTrigger("movies");
     }
     const formattedGenres = formatGenresOptions(genres);
     setAllMovieGenres(formattedGenres);
@@ -75,10 +76,10 @@ export default function Movies() {
     if (moviesData.status == "fulfilled") {
       pageRef.current = pageRef.current + 1;
       let isCurrentSameAsTotalPage =
-        pageRef.current <= movieResults.total_pages;
+        pageRef.current <= movieResults!.total_pages;
       setHasMore(isCurrentSameAsTotalPage);
 
-      setMovies((prevResult) => [...prevResult, ...movieResults.results]);
+      setMovies((prevResult) => [...prevResult, ...movieResults!.results]);
     }
   }, [moviesData]);
 
@@ -104,15 +105,15 @@ export default function Movies() {
     return query;
   };
 
-  const genreChange = useCallback((genre) => {
+  const genreChange = useCallback((genre: ICategory) => {
     setGenre(genre);
   }, []);
 
-  const yearChange = useCallback((year) => {
+  const yearChange = useCallback((year: ICategory) => {
     setYear(year);
   }, []);
 
-  const sortByChange = useCallback((sortBy) => {
+  const sortByChange = useCallback((sortBy: ICategory) => {
     setSortBy(sortBy);
   }, []);
 
@@ -124,7 +125,7 @@ export default function Movies() {
   }, [areMoviesLoading, areMoviesEmpty, moviesError]);
 
   return (
-    <main className="text-white lg:py-10 py-8">
+    <main className="dark:text-[#ffffff] text-[#000000] lg:py-10 py-8">
       <Container>
         <h2 className="lg:text-3xl text-2xl lg:mb-8 mb-4">Movies</h2>
         <div className="flex gap-x-2 lg:flex-nowrap flex-wrap">
@@ -174,7 +175,7 @@ export default function Movies() {
             {movies.map((movie) => {
               return (
                 <div className="mb-4" key={movie.id}>
-                  <MovieCard movie={movie} />
+                  <EntityCard type="movie" entity={movie} />
                 </div>
               );
             })}
@@ -186,3 +187,5 @@ export default function Movies() {
     </main>
   );
 }
+
+export default Movies;

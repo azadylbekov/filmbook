@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 
-export default function SearchResultSkeleton() {
+const SearchResultSkeleton = () => {
   const skeletons = [0, 1, 2];
 
   return (
@@ -28,3 +28,5 @@ export default function SearchResultSkeleton() {
     </>
   );
 }
+
+export default SearchResultSkeleton;

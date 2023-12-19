@@ -1,11 +1,12 @@
 import { IMovie } from "@/types/types";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 
 interface SliderItemProps {
   movie: IMovie
 }
 
-export default function SliderItem({ movie }: SliderItemProps) {
+const SliderItem: FC<SliderItemProps> = ({ movie }) => {
   return (
     <div className="w-full relative xl:pt-[56%] lg:pt-[46%] md:pt-[40%] pt-[30%] overflow-hidden">
       <Link to={`movie/${movie.id}`}>
@@ -26,3 +27,5 @@ export default function SliderItem({ movie }: SliderItemProps) {
     </div>
   );
 }
+
+export default SliderItem;
