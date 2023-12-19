@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IGenre } from "@/types/types";
+import { IGenre } from "@/types";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { getGenres } from "@/services/FilmBookService";
 

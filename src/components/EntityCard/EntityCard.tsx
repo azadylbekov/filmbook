@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import moviePlaceholder from "@/assets/images/moviePlaceholder.png";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 import { FC } from "react";
 
 type EntityCardProps = {

@@ -8,7 +8,7 @@ import {
   useDeleteRatingMutation,
   useChangeRatingMutation,
 } from "@/services/FilmBookService";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 import { toast } from "react-toastify";
 import { FC } from "react";
 

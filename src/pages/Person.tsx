@@ -8,7 +8,7 @@ import {
 } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { IMovie } from "@/types/types";
+import { IMovie } from "@/types";
 import About from "@/components/Person/About";
 import InfoSkeleton from "@/components/Person/InfoSkeleton";
 import EntityCard from "@/components/EntityCard/EntityCard";

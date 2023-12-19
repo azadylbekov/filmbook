@@ -3,7 +3,7 @@ import { FaHeart } from "react-icons/fa";
 import { useToggleFavoriteMutation } from "@/services/FilmBookService";
 import { useAppSelector } from "@/store/hooks";
 import { toast } from "react-toastify";
-import { IMovie, IShow, ITrailer } from "@/types/types";
+import { IMovie, IShow, ITrailer } from "@/types";
 
 
 

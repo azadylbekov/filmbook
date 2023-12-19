@@ -4,7 +4,7 @@ import EntityCard from "@/components/EntityCard/EntityCard";
 import "swiper/css";
 import "swiper/css/navigation";
 import MovieCardSkeleton from "../MovieGrid/MovieCardSkeleton";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 import { FC } from "react";
 
 const SWIPER_BREAKPOINTS = {

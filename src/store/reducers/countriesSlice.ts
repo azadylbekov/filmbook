@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ICountry } from "@/types/types";
+import { ICountry } from "@/types";
 import { getCountries } from "@/services/FilmBookService";
 
 interface CountriesState {

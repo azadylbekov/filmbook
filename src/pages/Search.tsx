@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { ISearchResult } from "@/types/types";
-import { IShow, IMovie } from "@/types/types";
+import { ISearchResult } from "@/types";
+import { IShow, IMovie } from "@/types";
 import EntityCard from "@/components/EntityCard/EntityCard";
 
 const Search = () => {

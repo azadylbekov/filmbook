@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import emptyAvatar from "@/assets/images/emptyAvatar.webp";
-import { ICredit } from "@/types/types";
+import { ICredit } from "@/types";
 import { FC } from 'react';
 
 interface CreditItemProps { 

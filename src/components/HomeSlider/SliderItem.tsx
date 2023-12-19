@@ -1,4 +1,4 @@
-import { IMovie } from "@/types/types";
+import { IMovie } from "@/types";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 

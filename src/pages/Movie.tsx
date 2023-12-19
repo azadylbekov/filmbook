@@ -10,7 +10,7 @@ import {
   useGetVideosQuery,
 } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
-import { ITrailer } from "@/types/types";
+import { ITrailer } from "@/types";
 import Background from "@/components/Entity/Standalone/Background";
 import Info from "@/components/Entity/Info/Info";
 import RatingDropdown from "@/components/Entity/Standalone/RatingDropdown";

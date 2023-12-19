@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import emptyAvatar from "@/assets/images/empty_avatar.webp";
-import { IPerson } from "@/types/types";
+import { IPerson } from "@/types";
 import Info from "./Info";
 import Biography from "./Biography";
 

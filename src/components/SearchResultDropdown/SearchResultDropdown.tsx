@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SearchResultSkeleton from "./SearchResultSkeleton";
 import SearchResultItem from "./SearchResultItem";
 import { FC } from "react";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 
 interface SearchResultDropdownProps {
   searchResults: IMovie[] | IShow[];

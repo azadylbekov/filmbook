@@ -9,7 +9,7 @@ import {
 } from "@/services/FilmBookService";
 import RatingDropdown from "@/components/Entity/Standalone/RatingDropdown";
 import TrailerModal from "@/components/TrailerModal/TrailerModal";
-import {  ITrailer } from "@/types/types";
+import {  ITrailer } from "@/types";
 import Background from "@/components/Entity/Standalone/Background";
 import Info from "@/components/Entity/Info/Info";
 import Overview from "@/components/Entity/Standalone/Overview";

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { getWatchlist } from "@/services/FilmBookService";
 

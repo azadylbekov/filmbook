@@ -15,7 +15,7 @@ import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useDidMountEffect from "@/hooks/useDidMountEffect";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { ICategory, IGenre, IShow, ICountry } from "@/types/types";
+import { ICategory, IGenre, IShow, ICountry } from "@/types";
 import { useAppSelector } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";
 

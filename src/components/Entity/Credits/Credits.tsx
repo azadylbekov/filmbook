@@ -4,7 +4,7 @@ import { useGetCreditsQuery } from "@/services/FilmBookService";
 import CreditsLoader from "./CreditsLoader";
 import CreditItem from "./CreditItem";
 import { FC } from 'react';
-import { ICredit } from "@/types/types";
+import { ICredit } from "@/types";
 
 const SWIPER_BREAKPOINTS = {
   1: {
@@ -41,7 +41,6 @@ const Credits: FC<CreditsProps> = ({ id, type }) => {
   const {
     data: credits,
     isLoading: isCreditsLoading,
-    error: creditsError,
   } = creditsData;
 
   let castAndCrew: any = [];

@@ -1,4 +1,4 @@
-import { IPerson } from "@/types/types";
+import { IPerson } from "@/types";
 import { FC } from 'react';
 
 interface InfoProps {

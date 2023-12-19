@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { formatDate } from "@/utils/functions";
 import Skeleton from "react-loading-skeleton";
 import moviePlaceholder from "@/assets/images/moviePlaceholder.png";
-import {IMovie, IShow} from '@/types/types'
+import {IMovie, IShow} from '@/types'
 
 type MovieOrShow =  | IShow;
 

@@ -1,4 +1,4 @@
-import { ICategory, IGenre } from "@/types/types";
+import { ICategory, IGenre } from "@/types";
 
 export const formatDate = (date: string) => {
 	if (!date) {

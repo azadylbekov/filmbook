@@ -1,13 +1,14 @@
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { IGenre } from "./IGenre";
-import { IMovie } from "./IMovie";
-import { IShow } from "./IShow";
-import { IPerson } from "./IPerson";
-import { ICategory } from "./ICategory";
-import { ICountry } from "./ICountry";
-import { ITrailer } from "./ITrailer";
-import { ITrailers } from "./ITrailer";
-import { SerializedError } from "./SerializedError";
+import { IGenre } from "./interfaces/IGenre";
+import { IMovie } from "./interfaces/IMovie";
+import { IShow } from "./interfaces/IShow";
+import { IPerson } from "./interfaces/IPerson";
+import { ICategory } from "./interfaces/ICategory";
+import { ICountry } from "./interfaces/ICountry";
+import { ITrailer } from "./interfaces/ITrailer";
+import { ITrailers } from "./interfaces/ITrailer";
+import { SerializedError } from "./interfaces/SerializedError";
+import { ICredit } from "./interfaces/ICredit";
 
 export type ISearchResult = IShow | IMovie;
 
@@ -17,6 +18,7 @@ export type {
   IShow,
   IPerson,
   ICategory,
+  ICredit,
   ICountry,
   ITrailer,
   ITrailers,

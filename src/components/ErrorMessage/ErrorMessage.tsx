@@ -1,4 +1,4 @@
-import { SerializedError, IErrorData } from "@/types/types";
+import { SerializedError, IErrorData } from "@/types";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { FC, useEffect, useState } from "react";
 

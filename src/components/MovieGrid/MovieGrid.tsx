@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa";
 import { useGetMoviesByGenreQuery } from "@/services/FilmBookService";
-import { IGenre } from "@/types/types";
+import { IGenre } from "@/types";
 import { FC } from "react";
 import EntityGridUI from "../EntityGridUI/EntityGridUI";
 

@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const API_URL = import.meta.env.VITE_API_URL;
 const API_TOKEN = import.meta.env.VITE_API_TOKEN;
 
-import { ICountry, IGenre, IMovie, IMovies, IPerson, IShow, IShows, ITrailers } from "@/types/types";
+import { ICountry, IGenre, IMovie, IMovies, IPerson, IShow, IShows, ITrailers } from "@/types";
 
 interface PageQuery {
   page: number | string,

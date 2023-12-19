@@ -6,7 +6,7 @@ import { setRatingMovies, setRatingTv } from "@/store/reducers/ratingSlice";
 import { useLazyGetRatingListQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { ICategory, IMovie, IShow } from "@/types/types";
+import { ICategory, IMovie, IShow } from "@/types";
 import { CATEGORY_OPTIONS } from "@/constants/const";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";

@@ -3,7 +3,7 @@ import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { useToggleWatchlistMutation } from "@/services/FilmBookService";
 import { useAppSelector } from "@/store/hooks";
 import { toast } from "react-toastify";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 
 const TOAST_MESSAGES = {
   movie: {

@@ -2,9 +2,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Provider } from "react-redux";
-import { store } from "@/store/store";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.tsx";
 import { StrictMode } from "react";
+import { store } from "./store";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/styles/main.scss";

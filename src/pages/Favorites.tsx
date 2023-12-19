@@ -10,7 +10,7 @@ import {
 import { useLazyGetFavoriteListQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { IMovie, IShow, ICategory } from "@/types/types";
+import { IMovie, IShow, ICategory } from "@/types";
 import { CATEGORY_OPTIONS } from "@/constants/const";
 import { useAppSelector } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";

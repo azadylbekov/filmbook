@@ -10,7 +10,7 @@ import {
 import { useLazyGetWatchlistQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { ICategory, IMovie, IShow } from "@/types/types";
+import { ICategory, IMovie, IShow } from "@/types";
 import { CATEGORY_OPTIONS } from "@/constants/const";
 import EntityCard from "@/components/EntityCard/EntityCard";
 

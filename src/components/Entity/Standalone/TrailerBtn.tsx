@@ -1,4 +1,4 @@
-import { ITrailer } from "@/types/types";
+import { ITrailer } from "@/types";
 import { FC } from "react";
 
 interface TrailerBtnProps {

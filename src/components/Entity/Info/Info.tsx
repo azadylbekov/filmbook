@@ -5,7 +5,7 @@ import {
   formatOverview,
   formatVote,
 } from "@/utils/functions";
-import { IMovie, IShow } from "@/types/types";
+import { IMovie, IShow } from "@/types";
 import FavoriteBtn from "../Standalone/FavoriteBtn";
 import WatchlistBtn from "../Standalone/WatchlistBtn";
 import TrailerBtn from "../Standalone/TrailerBtn";
@@ -56,7 +56,6 @@ const Info: FC<InfoProps> = ({
     return 'title' in detail;
   }
   
-  // Assuming 'detail' is of type IMovie | IShow
   if (type === 'movie') {
     if (isMovie(detail)) {
       title = detail.title;
