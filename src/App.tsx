@@ -12,6 +12,8 @@ import Watchlist from "./pages/Watchlist";
 import RatingList from "./pages/RatingList";
 import Layout from "./components/Layout/Layout";
 import useFetchLists from "./hooks/useFetchLists";
+import { ToastContainer } from "react-toastify";
+
 
 function App() {
   useFetchLists();
@@ -19,6 +21,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <ToastContainer />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

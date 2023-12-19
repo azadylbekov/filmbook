@@ -55,7 +55,7 @@ const FavoriteBtn: FC<FavoriteBtnProps> = ({
     if (type === "tv") {
       checkFavoriteTv();
     }
-  }, [entityId]);
+  }, [entityId, favoriteMovies, favoriteTv]);
 
   const checkFavoriteMovie = () => {
     if (
@@ -66,8 +66,6 @@ const FavoriteBtn: FC<FavoriteBtnProps> = ({
   };
 
   const checkFavoriteTv = () => {
-    console.log("true");
-
     if (favoriteTv.findIndex((show: IShow) => show.id == entityId) != -1) {
       setIsFavorite(true);
     }

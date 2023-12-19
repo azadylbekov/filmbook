@@ -66,7 +66,6 @@ const HeaderSearchForm = () => {
   }, []);
 
   const fetchSearchResult = (inputValue: string) => {
-    console.log("fetching results for ", inputValue);
     if (!inputValue) {
       setIsSearchDropdownShow(false);
       return;

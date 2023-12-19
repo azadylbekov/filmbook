@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import moviePlaceholder from "@/assets/images/moviePlaceholder.png";
 import {IMovie, IShow} from '@/types/types'
 
-type MovieOrShow = IMovie | IShow;
+type MovieOrShow =  | IShow;
 
 interface SearchResultItemProps {
   result: MovieOrShow

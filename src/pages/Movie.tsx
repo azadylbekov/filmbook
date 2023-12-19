@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import Credits from "@/components/Entity/Credits/Credits";
 import Container from "@/components/Container";
 import TrailerModal from "@/components/TrailerModal/TrailerModal";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   useGetMovieByIdQuery,
@@ -107,7 +106,6 @@ const Movie = () => {
           </Container>
         </div>
       )}
-      <ToastContainer />
     </>
   );
 }

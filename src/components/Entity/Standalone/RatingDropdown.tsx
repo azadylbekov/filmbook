@@ -37,7 +37,7 @@ const TOAST_MESSAGES = {
 
 interface RatingDropdownProps {
   entityId: string | number | undefined;
-  type: string;
+  type: "movie" | "tv";
 }
 
 const RatingDropdown: FC<RatingDropdownProps> = ({ entityId, type }) => {
@@ -58,9 +58,9 @@ const RatingDropdown: FC<RatingDropdownProps> = ({ entityId, type }) => {
       checkMovieRating();
     }
     if (type === "tv") {
-      checkTvRating;
+      checkTvRating();
     }
-  }, [entityId]);
+  }, [entityId, ratingTv, ratingMovies]);
 
   const checkMovieRating = () => {
     const ratedMovieIndex = ratingMovies.findIndex(

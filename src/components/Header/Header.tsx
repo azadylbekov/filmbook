@@ -1,4 +1,3 @@
-import { ToastContainer } from "react-toastify";
 import HeaderSearchForm from "./HeaderSearchForm";
 import HeaderLeftSection from "./HeaderLeftSection";
 import HeaderThemeToggler from "./HeaderThemeToggler";
@@ -26,7 +25,6 @@ const Header = () => {
       </Container>
       <MobileNavOffcanvas />
       <MobileSearchOffcanvas />
-      <ToastContainer />
     </header>
   );
 }

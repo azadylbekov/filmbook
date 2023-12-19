@@ -30,7 +30,7 @@ const TOAST_MESSAGES = {
 
 interface WatchlistBtnProps {
   entityId: string | number,
-  type: string
+  type: "movie" | "tv";
 }
 
 const WatchlistBtn: FC<WatchlistBtnProps> = ({ entityId, type }) => {
@@ -49,7 +49,7 @@ const WatchlistBtn: FC<WatchlistBtnProps> = ({ entityId, type }) => {
     if (type === 'tv') {
       checkWatchlistTv();
     }
-  }, [entityId]);
+  }, [entityId, watchlistMovies, watchlistTv]);
 
   const checkWatchlistMovie = () => {
     if (

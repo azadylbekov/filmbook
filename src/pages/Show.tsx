@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Container from "@/components/Container";
 import { useParams } from "react-router-dom";
 import Credits from "@/components/Entity/Credits/Credits";
-import { ToastContainer } from "react-toastify";
 import {
   useGetShowByIdQuery,
   useGetSimilarShowsQuery,
@@ -93,7 +92,6 @@ const Show = () => {
           </Container>
         </div>
       )}
-      <ToastContainer />
     </>
   );
 }
