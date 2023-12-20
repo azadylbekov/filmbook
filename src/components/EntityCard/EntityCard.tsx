@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import moviePlaceholder from "@/assets/images/moviePlaceholder.png";
 import { IMovie, IShow } from "@/types";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 type EntityCardProps = {
   entity: IMovie | IShow,
@@ -9,7 +9,12 @@ type EntityCardProps = {
 };
 
 const EntityCard: FC<EntityCardProps> = ({ entity, type }) => {
-  const formatDate = (date: string) => {
+  const [title, setTitle] = useState<string>('');
+
+  const formatDate = (date: string | undefined) => {
+    if (!date) {
+      return '';
+    }
     return new Date(date).getFullYear();
   };
 
@@ -18,12 +23,24 @@ const EntityCard: FC<EntityCardProps> = ({ entity, type }) => {
     poster = `http://image.tmdb.org/t/p/w400/${entity.poster_path}`
   }
 
-  let date = '';
+  let date;
   if (type == 'movie') {
     date = formatDate(entity.release_date);
   }
   if (type == 'show') {
     date = formatDate(entity.first_air_date);
+  }
+
+  useEffect(() => {
+    if (isMovie(entity)) {
+      setTitle(entity.title)
+    } else {
+      setTitle(entity.name);
+    }
+  }, [entity])
+
+  function isMovie(obj: IMovie | IShow):obj is IMovie {
+    return "title" in obj;
   }
 
   return (
@@ -37,7 +54,7 @@ const EntityCard: FC<EntityCardProps> = ({ entity, type }) => {
           />
         </div>
         <div className="p-3">
-          <h3 className="truncate">{entity?.title || entity?.name}</h3>
+          <h3 className="truncate">{title}</h3>
           <div className="bg-green py px-2 inline-block rounded-lg mt-2">
             {Number(entity.vote_average).toFixed(1)}
           </div>

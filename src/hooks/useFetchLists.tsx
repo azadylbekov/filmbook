@@ -24,15 +24,14 @@ const useFetchLists = () => {
   );
   const areRatingTvSet = useAppSelector((state) => state.rating.isTvSet);
 
-	const [getFavoriteTrigger, favoriteListData] = useLazyGetFavoriteListQuery();
-  const [getWatchlistTrigger, watchlistData] = useLazyGetWatchlistQuery();
-  const [ratingListTrigger, ratingListData] = useLazyGetRatingListQuery();
+	const [getFavoriteTrigger] = useLazyGetFavoriteListQuery();
+  const [getWatchlistTrigger] = useLazyGetWatchlistQuery();
+  const [ratingListTrigger] = useLazyGetRatingListQuery();
 
   const genresData = useGetMovieGenresQuery();
   const {
     data: genres,
     isLoading: areGenresLoading,
-    error: genresError,
   } = genresData;
 
   useEffect(() => {

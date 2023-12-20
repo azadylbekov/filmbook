@@ -1,4 +1,3 @@
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { IGenre } from "./interfaces/IGenre";
 import { IMovie } from "./interfaces/IMovie";
 import { IShow } from "./interfaces/IShow";
@@ -9,44 +8,26 @@ import { ITrailer } from "./interfaces/ITrailer";
 import { ITrailers } from "./interfaces/ITrailer";
 import { SerializedError } from "./interfaces/SerializedError";
 import { ICredit } from "./interfaces/ICredit";
+import { IShows } from "./interfaces/IShows";
+import { IMovies } from "./interfaces/IMovies";
+import { IErrorData } from "./interfaces/IErrorData";
+import { IError } from "./interfaces/IError";
 
 export type ISearchResult = IShow | IMovie;
 
 export type {
   IGenre,
   IMovie,
+  IMovies,
   IShow,
+  IShows,
   IPerson,
   ICategory,
   ICredit,
   ICountry,
+  IErrorData,
+  IError,
   ITrailer,
   ITrailers,
   SerializedError,
 };
-
-export interface IMovies {
-  results: IMovie[];
-  total_pages: number;
-  page: number;
-  total_results: number;
-}
-
-export interface IShows {
-  results: IShow[];
-  total_pages: number;
-  page: number;
-  total_results: number;
-}
-
-export interface IErrorData {
-  status_code: string | number;
-  status_message: string;
-  errors?: Array<string>;
-  success: boolean;
-}
-
-export interface IError {
-  status?: string | number;
-  data?: IErrorData | FetchBaseQueryError;
-}

@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { customStyles } from "@/utils/selectStyles";
 import {
@@ -10,13 +10,13 @@ import {
   generateYears,
   formatOptionLabel,
 } from "@/utils/functions";
-import { sortByOptions } from "@/constants/const";
+import { sortByOptions } from "@/constants/constants";
 import { useLazyGetMoviesWithFilterQuery, useLazyGetGenresQuery } from "@/services/FilmBookService";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
 import useDidMountEffect from "@/hooks/useDidMountEffect";
-import { ICategory, IGenre, IMovie } from "@/types";
+import { ICategory, IMovie } from "@/types";
 import { useAppSelector } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";
 
@@ -27,7 +27,7 @@ const Movies = () => {
   const [genre, setGenre] = useState<ICategory | null>(null);
   const [year, setYear] = useState<ICategory | null>(null);
   const [sortBy, setSortBy] = useState<ICategory>(sortByOptions[1]);
-  const [allMovieGenres, setAllMovieGenres] = useState<Array<IGenre>>([]);
+  const [allMovieGenres, setAllMovieGenres] = useState<ICategory[]>([]);
   const [yearOptions, setYearOptions] = useState<Array<ICategory>>([]);
   const [noResults, setNoResults] = useState<boolean>(false);
 
@@ -40,7 +40,7 @@ const Movies = () => {
     error: moviesError,
   } = moviesData;
 
-  const [getGenresTrigger, genresData] = useLazyGetGenresQuery();
+  const [getGenresTrigger] = useLazyGetGenresQuery();
 
   const { state } = useLocation();
 
@@ -105,18 +105,6 @@ const Movies = () => {
     return query;
   };
 
-  const genreChange = useCallback((genre: ICategory) => {
-    setGenre(genre);
-  }, []);
-
-  const yearChange = useCallback((year: ICategory) => {
-    setYear(year);
-  }, []);
-
-  const sortByChange = useCallback((sortBy: ICategory) => {
-    setSortBy(sortBy);
-  }, []);
-
   const areMoviesEmpty = movies.length === 0;
 
   useDidMountEffect(() => {
@@ -136,7 +124,7 @@ const Movies = () => {
               options={allMovieGenres}
               styles={customStyles}
               value={genre}
-              onChange={genreChange}
+              onChange={(genre) => setGenre(genre)}
               placeholder="Genres"
             />
           </div>
@@ -148,7 +136,7 @@ const Movies = () => {
               styles={customStyles}
               value={year}
               placeholder="Year of release"
-              onChange={yearChange}
+              onChange={(year) => setYear(year)}
               onKeyDown={handleNumberOnlyInput}
             />
           </div>
@@ -160,7 +148,7 @@ const Movies = () => {
               value={sortBy}
               placeholder="Sort by"
               formatOptionLabel={formatOptionLabel}
-              onChange={sortByChange}
+              onChange={(sortBy) => setSortBy(sortBy)}
               defaultValue={sortByOptions[1]}
             />
           </div>

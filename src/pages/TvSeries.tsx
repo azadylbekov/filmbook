@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Container from "@/components/Container";
 import {
   formatGenresOptions,
@@ -9,22 +9,22 @@ import {
 import { customStyles } from "@/utils/selectStyles";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { sortByOptions } from "@/constants/const";
+import { sortByOptions } from "@/constants/constants";
 import { useLazyGetShowsWithFilterQuery, useLazyGetCountriesQuery, useLazyGetGenresQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useDidMountEffect from "@/hooks/useDidMountEffect";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
-import { ICategory, IGenre, IShow, ICountry } from "@/types";
+import { ICategory, IShow, ICountry } from "@/types";
 import { useAppSelector } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";
 
 const TvSeries = () => {
   const genres = useAppSelector((state) => state.genre.tv);
   const countries = useAppSelector((state) => state.countries.value);
-  const [allTvGenres, setAllTvGenres] = useState<IGenre[]>([]);
+  const [allTvGenres, setAllTvGenres] = useState<ICategory[]>([]);
   const [yearOptions, setYearOptions] = useState<ICategory[]>([]);
-  const [allCountries, setAllCountries] = useState<ICountry[] | ICategory[]>(
+  const [allCountries, setAllCountries] = useState<ICategory[]>(
     []
   );
 
@@ -47,8 +47,8 @@ const TvSeries = () => {
     error: showsError,
   } = showsData;
 
-  const [getCountriesTrigger, countriesData] = useLazyGetCountriesQuery();
-  const [getGenresTrigger, genresData] = useLazyGetGenresQuery();
+  const [getCountriesTrigger] = useLazyGetCountriesQuery();
+  const [getGenresTrigger] = useLazyGetGenresQuery();
   
 
   useEffect(() => {
@@ -125,22 +125,6 @@ const TvSeries = () => {
     return query;
   };
 
-  const genreChange = useCallback((genre: ICategory) => {
-    setGenre(genre);
-  }, []);
-
-  const yearChange = useCallback((year: ICategory) => {
-    setYear(year);
-  }, []);
-
-  const sortByChange = useCallback((sortBy: ICategory) => {
-    setSortBy(sortBy);
-  }, []);
-
-  const countryChange = useCallback((country: ICategory) => {
-    setCountry(country);
-  }, []);
-
   const areShowsEmpty = shows.length === 0;
 
   useDidMountEffect(() => {
@@ -160,7 +144,7 @@ const TvSeries = () => {
               options={allTvGenres}
               styles={customStyles}
               value={genre}
-              onChange={genreChange}
+              onChange={(genre) => setGenre(genre)}
               placeholder="Genres"
             />
           </div>
@@ -172,7 +156,7 @@ const TvSeries = () => {
               styles={customStyles}
               value={year}
               placeholder="Year of release"
-              onChange={yearChange}
+              onChange={(year) => setYear(year)}
               onKeyDown={handleNumberOnlyInput}
             />
           </div>
@@ -184,7 +168,7 @@ const TvSeries = () => {
               value={sortBy}
               placeholder="Sort by"
               formatOptionLabel={formatOptionLabel}
-              onChange={sortByChange}
+              onChange={(sortBy) => setSortBy(sortBy)}
               defaultValue={sortByOptions[1]}
             />
           </div>
@@ -196,7 +180,7 @@ const TvSeries = () => {
               styles={customStyles}
               value={country}
               placeholder="Country"
-              onChange={countryChange}
+              onChange={(country) => setCountry(country)}
             />
           </div>
         </div>

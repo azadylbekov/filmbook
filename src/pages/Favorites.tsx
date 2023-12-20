@@ -11,7 +11,7 @@ import { useLazyGetFavoriteListQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
 import { IMovie, IShow, ICategory } from "@/types";
-import { CATEGORY_OPTIONS } from "@/constants/const";
+import { CATEGORY_OPTIONS } from "@/constants/constants";
 import { useAppSelector } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";
 
@@ -37,11 +37,12 @@ const Favorites = () => {
 
   useEffect(() => {
     if (!isFavoriteListLoading && favoriteListData.status == "fulfilled") {
-      if (category.value == "movies") {
+      if (category.value == "movies" && favoriteList) {
         setMovies(favoriteList.results);
         dispatch(setFavoriteMovies(favoriteList.results));
         setNoMovies(favoriteList.results.length === 0);
-      } else {
+      }
+      if (category.value == "tv" && favoriteList) {
         setShows(favoriteList.results);
         dispatch(setFavoriteTv(favoriteList.results));
         setNoShows(favoriteList.results.length === 0);

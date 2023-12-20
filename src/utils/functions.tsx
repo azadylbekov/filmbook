@@ -1,17 +1,17 @@
 import { ICategory, IGenre } from "@/types";
 
-export const formatDate = (date: string) => {
+export const formatDate = (date: string | undefined) => {
 	if (!date) {
 		return '';
 	}
 	return new Date(date).getFullYear();
 };
 
-export const formatGenresOptions = (genres: IGenre[]) => {
-	return genres.map((genre: IGenre) => {
+export const formatGenresOptions = (genres: IGenre[]): ICategory[] => {
+	return genres.map((genre) => {
 		return {
 			label: genre.name,
-			value: genre.id,
+			value: genre.id.toString(),
 		};
 	});
 };
@@ -36,7 +36,7 @@ export const generateYears = () => {
 	while (start <= end) {
 		const option = {
 			label: start,
-			value: start,
+			value: start.toString(),
 		};
 		options.push(option);
 		start++;
@@ -45,7 +45,7 @@ export const generateYears = () => {
 };
 
 
-export const formatOptionLabel = ({ value, label, icon }: ICategory) => (
+export const formatOptionLabel = ({ label, icon }: ICategory) => (
 	<div className="flex items-center">
 		<div className="mr-3">{label}</div>
 		<div>
@@ -54,7 +54,8 @@ export const formatOptionLabel = ({ value, label, icon }: ICategory) => (
 	</div>
 )
 
-export const formatRuntime = (minutes: number) => {
+export const formatRuntime = (minutes: number | string) => {
+	minutes = +minutes;
 	if (minutes < 60) {
 		return minutes + " minutes";
 	}

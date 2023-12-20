@@ -11,7 +11,7 @@ import { useLazyGetWatchlistQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
 import { ICategory, IMovie, IShow } from "@/types";
-import { CATEGORY_OPTIONS } from "@/constants/const";
+import { CATEGORY_OPTIONS } from "@/constants/constants";
 import EntityCard from "@/components/EntityCard/EntityCard";
 
 const Watchlist = () => {
@@ -37,11 +37,12 @@ const Watchlist = () => {
 
   useEffect(() => {
     if (!isWatchlistLoading && watchlistData.status == "fulfilled") {
-      if (category.value == "movies") {
+      if (category.value == "movies" && watchlist) {
         setMovies(watchlist.results);
         dispatch(setWatchlistMovies(watchlist.results));
         setNoMovies(watchlist.results.length === 0);
-      } else {
+      }
+      if (category.value == "tv" && watchlist) {
         setShows(watchlist.results);
         dispatch(setWatchlistTv(watchlist.results));
         setNoShows(watchlist.results.length === 0);

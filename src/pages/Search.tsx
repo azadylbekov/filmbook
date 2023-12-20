@@ -41,10 +41,13 @@ const Search = () => {
   useEffect(() => {
     if (searchResultsData.status == "fulfilled") {
       pageRef.current = pageRef.current + 1;
-      let isCurrentSameAsTotalPage = pageRef.current <= result.total_pages;
-      setHasMore(isCurrentSameAsTotalPage);
 
-      setSearchResult((prevResult) => [...prevResult, ...result.results]);
+      if (result) {
+        let isCurrentSameAsTotalPage = pageRef.current <= result.total_pages;
+        setHasMore(isCurrentSameAsTotalPage);
+
+        setSearchResult((prevResult) => [...prevResult, ...result.results]);
+      }
     }
   }, [searchResultsData]);
 
@@ -73,11 +76,15 @@ const Search = () => {
             ))}
           </div>
         </InfiniteScroll>
-        {noResult && <h3 className="mt-2 text-[#010101] dark:text-[#fefefe] text-xl">No Results found</h3>}
+        {noResult && (
+          <h3 className="mt-2 text-[#010101] dark:text-[#fefefe] text-xl">
+            No Results found
+          </h3>
+        )}
         {resultError && <ErrorMessage error={resultError} />}
       </Container>
     </div>
   );
-}
+};
 
 export default Search;

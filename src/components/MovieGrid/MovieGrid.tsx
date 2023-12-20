@@ -15,7 +15,6 @@ const MovieGrid: FC<MovieGridProps> = ({ genre }) => {
   const {
     data: moviesData,
     isLoading: areMoviesLoading,
-    error: moviesError,
   } = useGetMoviesByGenreQuery(genre.id);
 
   const movies = moviesData?.results || [];

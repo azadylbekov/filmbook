@@ -7,11 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useDebounce from "@/hooks/useDebounce";
 import { useLazyGetSearchResultsQuery } from "@/services/FilmBookService";
 import { BaseQueryApi } from "@reduxjs/toolkit/query";
+import { IMovie, IShow } from "@/types";
 
 const HeaderSearchForm = () => {
   const [isSearchDropdownShow, setIsSearchDropdownShow] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<IMovie[] | IShow[]>([]);
 
   const debounce = useDebounce();
   const navigate = useNavigate();
@@ -26,7 +27,6 @@ const HeaderSearchForm = () => {
   const {
     data: result,
     isFetching: isResultLoading,
-    error: resultError,
   } = searchResultsData;
 
   useEffect(() => {
@@ -48,10 +48,13 @@ const HeaderSearchForm = () => {
 
   useEffect(() => {
     if (!isResultLoading && searchResultsData.status == "fulfilled") {
-      const results = result.results.slice(0, 3);
-      setSearchResults(results);
+      if (result) {
+        const results = result.results.slice(0, 3);
+        setSearchResults(results);
+  
+        setIsSearchDropdownShow(true);
+      }
 
-      setIsSearchDropdownShow(true);
     }
   }, [searchResultsData]);
 

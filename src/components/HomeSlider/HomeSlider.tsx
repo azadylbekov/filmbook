@@ -16,7 +16,6 @@ const HomeSlider = () => {
   const {
     data: movies,
     isLoading: areMoviesLoading,
-    error: moviesError,
   } = moviesData;
 
   const allMovies = movies?.results.slice(0, 10) || [];

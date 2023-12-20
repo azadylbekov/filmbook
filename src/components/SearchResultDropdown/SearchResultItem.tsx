@@ -2,12 +2,12 @@ import { FC, useState } from "react";
 import { formatDate } from "@/utils/functions";
 import Skeleton from "react-loading-skeleton";
 import moviePlaceholder from "@/assets/images/moviePlaceholder.png";
-import {IMovie, IShow} from '@/types'
+import { IMovie, IShow } from "@/types";
 
-type MovieOrShow =  | IShow;
+type MovieOrShow = IMovie | IShow;
 
 interface SearchResultItemProps {
-  result: MovieOrShow
+  result: MovieOrShow;
 }
 
 const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
@@ -21,10 +21,10 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
 
   let title;
   function isMovie(obj: MovieOrShow): obj is IMovie {
-    return "title" in obj
+    return "title" in obj;
   }
-  
-  if(isMovie(result)) {
+
+  if (isMovie(result)) {
     title = result.title;
   }
   if (!isMovie(result)) {
@@ -35,7 +35,9 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
     <div className="flex hover:!border-[#343434] border !border-transparent duration-3000 rounded items-center mb-2 p-1">
       <div className="h-20 mr-2 shrink-0">
         <img
-          className={"object-cover h-full w-full " + (isLoaded ? 'block' : 'hidden')}
+          className={
+            "object-cover h-full w-full " + (isLoaded ? "block" : "hidden")
+          }
           src={movieImg(result)}
           onLoad={() => setIsLoaded(true)}
         />
@@ -58,6 +60,6 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
       </div>
     </div>
   );
-}
+};
 
 export default SearchResultItem;

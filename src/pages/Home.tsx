@@ -1,6 +1,6 @@
 import HomeSlider from "@/components/HomeSlider/HomeSlider";
 import MovieGrid from "@/components/MovieGrid/MovieGrid";
-import { GENRES } from "@/constants/const";
+import { GENRES } from "@/constants/constants";
 
 const Home = () => {
 

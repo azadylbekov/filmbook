@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./NavLinks.module.scss";
-import { NAV_LINKS } from "@/constants/const";
+import { NAV_LINKS } from "@/constants/constants";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useEffect, useState, useRef, FC } from "react";
 

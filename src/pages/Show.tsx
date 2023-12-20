@@ -23,17 +23,16 @@ const Show = () => {
   const [showTrailer, setShowTrailer] = useState<boolean>(false);
 
   const showData = useGetShowByIdQuery(showId!);
-  const { data: show, isLoading: isShowLoading, error: showError } = showData;
+  const { data: show, isLoading: isShowLoading } = showData;
 
   const similarShowsData = useGetSimilarShowsQuery(showId);
   const similarShows = similarShowsData?.data?.results;
-  const { isLoading: isSimilarShowsLoading, error: similarShowsError } =
+  const { isLoading: isSimilarShowsLoading } =
     similarShowsData;
 
   const {
     data: videos,
     isLoading: areVideosLoading,
-    error: videosError,
   } = useGetVideosQuery({ type: "tv", id: showId });
 
   useEffect(() => {
@@ -57,7 +56,7 @@ const Show = () => {
               type="tv"
               setShowTrailer={setShowTrailer}
               trailer={trailer}
-              entityId={showId}
+              entityId={show.id}
             >
               <RatingDropdown entityId={showId} type="tv" />
             </Info>
@@ -77,7 +76,7 @@ const Show = () => {
       )}
       {isShowLoading && <InfoSkeleton />}
       <Credits id={showId} type="tv" />
-      {!isSimilarShowsLoading && similarShows.length > 0 && (
+      {!isSimilarShowsLoading && similarShows && similarShows.length > 0 && (
         <div className="my-6">
           <Container>
             <h3 className="lg:text-2xl text-xl text-white lg:my-5 my-3 flex items-center">

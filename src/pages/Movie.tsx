@@ -33,13 +33,12 @@ const Movie = () => {
 
   const similarMoviesData = useGetSimilarMoviesQuery(movieId);
   const similarMovies = similarMoviesData?.data?.results;
-  const { isLoading: isSimilarMoviesLoading, error: similarMoviesError } =
+  const { isLoading: isSimilarMoviesLoading } =
     similarMoviesData;
 
   const {
     data: videos,
     isLoading: areVideosLoading,
-    error: videosError,
   } = useGetVideosQuery({ type: "movie", id: movieId });
 
   useEffect(() => {
@@ -63,7 +62,7 @@ const Movie = () => {
               type="movie"
               setShowTrailer={setShowTrailer}
               trailer={trailer}
-              entityId={movieId}
+              entityId={movie.id}
             >
               <RatingDropdown entityId={movieId} type="movie" />
             </Info>
@@ -91,7 +90,7 @@ const Movie = () => {
         )}
       </Container>
       <Credits id={movieId} type="movie" />
-      {!isSimilarMoviesLoading && similarMovies.length > 0 && (
+      {!isSimilarMoviesLoading && similarMovies && similarMovies.length > 0 && (
         <div className="my-6">
           <Container>
             <h3 className="lg:text-2xl text-xl text-white lg:my-5 my-3 flex items-center">

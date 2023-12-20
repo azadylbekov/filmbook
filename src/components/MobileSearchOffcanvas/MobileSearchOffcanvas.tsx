@@ -8,10 +8,11 @@ import SearchResultDropdown from "@/components/SearchResultDropdown/SearchResult
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setSearchCanvas } from "@/store/reducers/offcanvasSlice";
 import MobileSearchForm from "./MobileSearchForm";
+import { IShow, IMovie } from "@/types";
 
 const MobileOffcanvas = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<IMovie[] | IShow[]>([]);
   const [isSearchValueClear, setIsSeachValueClear] = useState(true);
   const [isSearchDropdownShow, setIsSearchDropdownShow] = useState(false);
   const isSearchCanvasOpen = useAppSelector(
@@ -24,18 +25,16 @@ const MobileOffcanvas = () => {
 
   const [getSearchResultsTrigger, searchResultsData] =
     useLazyGetSearchResultsQuery();
-  const {
-    data: result,
-    isFetching: isResultLoading,
-    error: resultError,
-  } = searchResultsData;
+  const { data: result, isFetching: isResultLoading } = searchResultsData;
 
   useEffect(() => {
     if (!isResultLoading && searchResultsData.status == "fulfilled") {
-      const results = result.results.slice(0, 3);
-      setSearchResults(results);
+      if (result) {
+        const results = result.results.slice(0, 3);
+        setSearchResults(results);
 
-      setIsSearchDropdownShow(true);
+        setIsSearchDropdownShow(true);
+      }
     }
   }, [searchResultsData]);
 
@@ -118,6 +117,6 @@ const MobileOffcanvas = () => {
       )}
     </Offcanvas>
   );
-}
+};
 
 export default MobileOffcanvas;

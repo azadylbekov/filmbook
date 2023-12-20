@@ -7,7 +7,7 @@ import { useLazyGetRatingListQuery } from "@/services/FilmBookService";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import MovieGridSkeleton from "@/components/MovieGrid/MovieGridSkeleton";
 import { ICategory, IMovie, IShow } from "@/types";
-import { CATEGORY_OPTIONS } from "@/constants/const";
+import { CATEGORY_OPTIONS } from "@/constants/constants";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import EntityCard from "@/components/EntityCard/EntityCard";
 
@@ -34,11 +34,12 @@ const RatingList = () => {
 
   useEffect(() => {
     if (!isRatingListLoading && ratingListData.status == "fulfilled") {
-      if (category.value == "movies") {
+      if (category.value == "movies" && ratingList) {
         setMovies(ratingList.results);
         dispatch(setRatingMovies(ratingList.results));
         setNoMovies(ratingList.results.length === 0);
-      } else {
+      }
+      if (category.value == "tv" && ratingList) {
         setShows(ratingList.results);
         dispatch(setRatingTv(ratingList.results));
         setNoShows(ratingList.results.length === 0);
