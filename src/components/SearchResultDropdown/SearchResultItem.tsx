@@ -51,7 +51,7 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
           />
         )}
       </div>
-      <div className="grow-0">
+      <div className="grow-0 overflow-hidden">
         <h3 className="text-lg">{title}</h3>
         <h5 className="truncate">
           {result.original_title || result.original_name}{" "}
