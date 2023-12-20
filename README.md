@@ -28,6 +28,21 @@
 - React Bootstrap
 - React Icons
 
+#### Для запуска нужны переменные окружения .env c API Token от TheMovieDatabase (TMDB)
+
+#### Команда для установки:
+```sh
+npm install
+```
+#### Команда для запуска dev server:
+```sh
+npm run dev
+```
+#### Команда для запуска build:
+```sh
+npm run build
+```
+
 #### Скриншоты приложения:
 ![Alt text](<screenshots/Снимок экрана (154).png>)
 ![Alt text](<screenshots/Снимок экрана (153).png>)
@@ -46,17 +61,3 @@
 ![Alt text](<screenshots/Снимок экрана (149).png>)
 ![Alt text](<screenshots/Снимок экрана (150).png>)
 
-#### Для запуска нужны переменные окружения .env c API Token от TheMovieDatabase (TMDB)
-
-#### Команда для установки:
-```sh
-npm install
-```
-#### Команда для запуска dev server:
-```sh
-npm run dev
-```
-#### Команда для запуска build:
-```sh
-npm run build
-```
