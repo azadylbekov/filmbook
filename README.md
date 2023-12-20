@@ -1,27 +1,61 @@
-# React + TypeScript + Vite
+# FilmBook
+### https://filmbook-eight.vercel.app/
+Веб приложения для поиска, фильтрация фильмов, сериалов и актеров. А также добавления, удаления из понравившихся, избранных и рейтинги фильмов. Backend API основан на TheMovieDatabase (TMDB). https://www.themoviedb.org/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Основной функционал:
+- Отображение популярных фильмов
+- Разделы фильмов по жанрам
+- Поисковик фильмов и сериалов
+- Авторизация как гостевой пользователь
+- Поддержка 2 тем: темный и светлый
+- Фильтрация фильмов по жанру, году выпуска и сортировка по известности и рейтингу
+- Фильтрация сериалов по жанру, году выпуска, стране  и сортировка по известности и рейтингу
+- Возможность детально изучить фильм или сериал
+- Отображение похожих фильмов
+- Отображение титров
+- Добавление фильма в избранные, понравившиеся и голосование для рейтинга
+- Возможность изучить актера и режиссера
+- Возможность посмотреть лист из понравившихся, избранные и проголосованные
+- Реализована адаптивность на разные ширины экранов: десктопные, планшетные, мобильные
 
-Currently, two official plugins are available:
+### Стек веб приложения:
+- React 18
+- TypeScript
+- Redux Toolkit
+- RTK Query
+- Tailwind
+- React Bootstrap
+- React Icons
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Скриншоты приложения:
+![Alt text](<screenshots/Снимок экрана (154).png>)
+![Alt text](<screenshots/Снимок экрана (153).png>)
+![Alt text](<screenshots/Снимок экрана (137).png>)
+![Alt text](<screenshots/Снимок экрана (138).png>)
+![Alt text](<screenshots/Снимок экрана (139).png>)
+![Alt text](<screenshots/Снимок экрана (140).png>)
+![Alt text](<screenshots/Снимок экрана (141).png>)
+![Alt text](<screenshots/Снимок экрана (142).png>)
+![Alt text](<screenshots/Снимок экрана (143).png>)
+![Alt text](<screenshots/Снимок экрана (144).png>)
+![Alt text](<screenshots/Снимок экрана (145).png>)
+![Alt text](<screenshots/Снимок экрана (146).png>)
+![Alt text](<screenshots/Снимок экрана (147).png>)
+![Alt text](<screenshots/Снимок экрана (148).png>)
+![Alt text](<screenshots/Снимок экрана (149).png>)
+![Alt text](<screenshots/Снимок экрана (150).png>)
 
-## Expanding the ESLint configuration
+#### Для запуска нужны переменные окружения .env c API Token от TheMovieDatabase (TMDB)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+#### Команда для установки:
+```sh
+npm install
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+#### Команда для запуска dev server:
+```sh
+npm run dev
+```
+#### Команда для запуска build:
+```sh
+npm run build
+```
