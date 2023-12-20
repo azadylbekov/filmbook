@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { formatDate } from "@/utils/functions";
 import Skeleton from "react-loading-skeleton";
 import moviePlaceholder from "@/assets/images/moviePlaceholder.png";
@@ -12,12 +12,19 @@ interface SearchResultItemProps {
 
 const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isNoPoster, setIsNoPoster] = useState<boolean>(false);
 
   const movieImg = (result: MovieOrShow) => {
     return result.poster_path
       ? `https://image.tmdb.org/t/p/w92/${result.poster_path}`
       : moviePlaceholder;
   };
+
+  useEffect(() => {
+    if (!result.poster_path) {
+      setIsNoPoster(true);
+    }
+  }, [result]);
 
   let title;
   function isMovie(obj: MovieOrShow): obj is IMovie {
@@ -36,7 +43,9 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
       <div className="h-20 mr-2 shrink-0">
         <img
           className={
-            "object-cover h-full w-full " + (isLoaded ? "block" : "hidden")
+            "object-cover h-full w-full " +
+            (isLoaded ? "block" : "hidden") +
+            (isNoPoster && "h-[79px] w-[56px]")
           }
           src={movieImg(result)}
           onLoad={() => setIsLoaded(true)}
