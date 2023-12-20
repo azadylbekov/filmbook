@@ -45,7 +45,7 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
           className={
             "object-cover h-full w-full " +
             (isLoaded ? "block" : "hidden") +
-            (isNoPoster && "h-[79px] w-[56px]")
+            (isNoPoster && " h-[79px] w-[56px]")
           }
           src={movieImg(result)}
           onLoad={() => setIsLoaded(true)}
