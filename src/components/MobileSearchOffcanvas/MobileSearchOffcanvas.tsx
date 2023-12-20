@@ -39,7 +39,6 @@ const MobileOffcanvas = () => {
   }, [searchResultsData]);
 
   useEffect(() => {
-    console.log('changed');
     closeSearchCanvas();
     setSearchValue("");
     setSearchResults([]);
@@ -82,7 +81,6 @@ const MobileOffcanvas = () => {
   }, [searchValue]);
 
   const closeSearchCanvas = () => {
-    console.log('closing search canvas');
     setIsSearchDropdownShow(false);
     dispatch(setSearchCanvas(false));
   };

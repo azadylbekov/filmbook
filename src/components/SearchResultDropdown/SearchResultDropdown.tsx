@@ -13,6 +13,8 @@ interface SearchResultDropdownProps {
 
 type MovieOrShow = IMovie | IShow;
 
+const ZIndexOfOffcanvas = 1045;
+
 const SearchResultDropdown: FC<SearchResultDropdownProps> = ({
   searchResults,
   searchValue,
@@ -29,7 +31,7 @@ const SearchResultDropdown: FC<SearchResultDropdownProps> = ({
 
   return (
     <div
-      style={{ zIndex: 1045 }}
+      style={{ zIndex: ZIndexOfOffcanvas }}
       className={
         "absolute w-full min-h-[100px] p-[15px] bg-[#323232] rounded-[10px] border top-[45px] !border-[#424242] bg-black z-50 flex flex-col justify-center " +
         extraClasses
