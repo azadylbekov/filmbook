@@ -39,12 +39,14 @@ const MobileOffcanvas = () => {
   }, [searchResultsData]);
 
   useEffect(() => {
+    console.log('changed');
+    closeSearchCanvas();
     setSearchValue("");
     setSearchResults([]);
     setTimeout(() => {
       setIsSearchDropdownShow(false);
     }, 500);
-  }, [location.state]);
+  }, [location.pathname]);
 
   const searchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
@@ -80,6 +82,8 @@ const MobileOffcanvas = () => {
   }, [searchValue]);
 
   const closeSearchCanvas = () => {
+    console.log('closing search canvas');
+    setIsSearchDropdownShow(false);
     dispatch(setSearchCanvas(false));
   };
 
@@ -111,7 +115,7 @@ const MobileOffcanvas = () => {
         <SearchResultDropdown
           searchResults={searchResults}
           searchValue={searchValue}
-          extraClasses={"!top-[97px] text-white !border-none !rounded-none"}
+          extraClasses={"!top-[67px] text-white !border-none !rounded-none"}
           isLoading={isResultLoading}
         />
       )}

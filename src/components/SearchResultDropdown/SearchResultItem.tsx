@@ -52,7 +52,7 @@ const SearchResultItem: FC<SearchResultItemProps> = ({ result }) => {
       </div>
       <div className="grow-0">
         <h3 className="text-lg">{title}</h3>
-        <h5>
+        <h5 className="truncate">
           {result.original_title || result.original_name}{" "}
           {result.release_date && formatDate(result.release_date)}{" "}
           {result.first_air_date && formatDate(result.first_air_date)}
